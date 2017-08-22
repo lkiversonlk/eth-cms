@@ -8,7 +8,7 @@ var logger = require('../lib/logger.lib');
 var port = require('../lib/port.lib.js')();
 var themes = require('../lib/themes.lib');
 var installService = require('../core/services/install.service');
-
+var fs = require("fs");
 /**
  * 设置端口
  */
@@ -79,5 +79,6 @@ async.waterfall([
     var bind = typeof addr === 'string' ? 'pipe ' + addr : 'port ' + addr.port;
 
     logger.system().info('正在监听 ' + bind);
+    fs.writeFileSync("PID", process.pid.toString() + "\n");
   });
 });
