@@ -118,11 +118,12 @@ exports.navigation = function (options, callback) {
     function (tree, callback) {
       tree = tree || [];
 
+      /*
       tree.unshift({
         name: '首页',
         path: '/',
         isShow: true
-      });
+      });*/
 
       callback(null, tree);
     },
