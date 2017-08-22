@@ -16,3 +16,4 @@ public/media/*
 !public/media/.gitkeep
 public/themes/*
 !public/themes/default
+nohup.out
