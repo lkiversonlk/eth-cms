@@ -34,30 +34,6 @@
           {{/foreach}}
         </ul>
       </div>
-      <div class="panel panel-default">
-        <div class="panel-heading">频道阅读本月排行</div>
-        <ul class="list-group">
-          {{#foreach readingList.month limit="5"}}
-            <a href="{{href}}" class="list-group-item text-overflow">{{title}}</a>
-          {{/foreach}}
-        </ul>
-      </div>
-      <div class="panel panel-default">
-        <div class="panel-heading">频道阅读本周排行</div>
-        <ul class="list-group">
-          {{#foreach readingList.week limit="5"}}
-            <a href="{{href}}" class="list-group-item text-overflow">{{title}}</a>
-          {{/foreach}}
-        </ul>
-      </div>
-      <div class="panel panel-default">
-        <div class="panel-heading">频道阅读今日排行</div>
-        <ul class="list-group">
-          {{#foreach readingList.day limit="5"}}
-            <a href="{{href}}" class="list-group-item text-overflow">{{title}}</a>
-          {{/foreach}}
-        </ul>
-      </div>
     </div>
   </div>
 </div>
