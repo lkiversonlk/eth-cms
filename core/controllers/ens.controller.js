@@ -14,8 +14,8 @@ function Record(entry, web3){
     var status_int = parseInt(entry[0]);
     var address = entry[1];
     var date = new Date(parseInt(entry[2]) * 1000);
-    var highestBid = web3.fromWei(entry[3], "ether");
-    var secondBid = web3.fromWei(entry[4], "ether");
+    var highestBid = web3.fromWei(entry[4], "ether");
+    var secondBid = web3.fromWei(entry[3], "ether");
     var status_ch = status[status_int];
 
     return {
