@@ -9,7 +9,105 @@
     <div class="page-header text-center">
         <h1>{{category.name}}</h1>
     </div>
+
     <div class="content">
-        {{{content}}}
+        <div class="input-group">
+            <input id="domain" type="text" class="form-control" placeholder="请输入域名" aria-describedby="basic-addon2">
+            <span
+                    class="input-group-addon"
+                    id="ok"
+                    style="
+                        cursor: pointer;
+                        :hover{
+                            background: blue;
+                        }
+                        "
+            >
+                .eth
+            </span>
+        </div>
+
+
+
+        <div style="margin-top: 40px;">
+            <table class="table table-striped">
+                <tbody>
+                <tr>
+                    <td>当前状态</td>
+                    <td id="stch"></td>
+                </tr>
+                <tr>
+                    <td>注册时间</td>
+                    <td id="date"></td>
+                </tr>
+                <tr>
+                    <td>所属者地址</td>
+                    <td id="owner"></td>
+                </tr>
+                <tr>
+                    <td>最高出价(以太币)</td>
+                    <td id="high"></td>
+                </tr>
+                <tr>
+                    <td>第二价格(以太币)</td>
+                    <td id="sec"></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div>
+            <div id="success" style="margin-top: 20px" class="alert alert-success">
+            </div>
+            <div id="error" class="alert alert-danger">
+            </div>
+        </div>
+
     </div>
+
+    <script type="application/javascript">
+        $("#error").hide();
+        $("#success").hide();
+
+        function Search(){
+            var search = $("#domain").val();
+            $("#error").html("");
+            $("#success").html("");
+            $("#error").hide();
+            $("#success").hide();
+
+            if(search.length < 7){
+                if(search.length == 0) {
+                    return;
+                } else {
+                    $("#error").html("域名长度不能小于7， " + search + " 只有" + search.length);
+                    $("#error").show();
+                    return;
+                }
+            } else {
+                console.log("trying to query domain" + search);
+                $.get("/eth/ens?domain=" + search, function (data) {
+                    $("#success").html("查询成功");
+                    $("#success").show();
+                    Object.keys(data).forEach(function(key){
+                        if(key === 'date'){
+                            var time = new Date(data[key]);
+                            $("#date").html(time.toLocaleDateString());
+                        } else {
+                            $("#"+key).html(data[key]);
+                        }
+                    });
+                });
+            }
+        }
+
+        $("#ok").click(Search);
+        $('#domain').keypress(function (e) {
+            if (e.which == 13) {
+                Search();
+                return false;    //<---- Add this line
+            }
+        });
+
+    </script>
 </div>

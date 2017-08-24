@@ -14,9 +14,12 @@ var errors = require('./core/controllers/errors.controller').error;
 var Web3 = require("web3");
 
 var ethereum = new Web3(new Web3.providers.HttpProvider("http://localhost:8545"));
+var ens = require("./lib/ens.lib");
 
 var app = express();
 app.set("ethereum", ethereum);
+app.set("ens", ens(ethereum));
+
 /**
  * 设置模板解析
  */
