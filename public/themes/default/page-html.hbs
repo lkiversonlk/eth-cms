@@ -27,7 +27,9 @@
             </span>
         </div>
 
+        <div>
 
+        </div>
 
         <div style="margin-top: 40px;">
             <table class="table table-striped">
@@ -51,6 +53,10 @@
                 <tr>
                     <td>第二价格(以太币)</td>
                     <td id="sec"></td>
+                </tr>
+                <tr>
+                    <td>以太币实时价格(人民币)</td>
+                    <td id="eth_price"></td>
                 </tr>
                 </tbody>
             </table>
@@ -97,6 +103,10 @@
                             $("#"+key).html(data[key]);
                         }
                     });
+                });
+
+                $.get("/eth/eth_price", function (data) {
+                    $("#eth_price").html(data.sell);
                 });
             }
         }

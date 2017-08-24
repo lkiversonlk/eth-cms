@@ -183,6 +183,9 @@ module.exports = {
     '/eth' : {
         '/ens' : {
             all : "ens"
+        },
+        "/eth_price": {
+            all : "eth_price"
         }
     },
 

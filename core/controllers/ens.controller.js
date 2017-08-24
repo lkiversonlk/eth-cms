@@ -33,7 +33,6 @@ module.exports = function (req, res) {
     var ens = req.app.get("ens");
     var domain = req.query.domain;
     console.log("try to parse " + domain + " length " + domain.length);
-
     res.json(Record(ens.ethRegistrar.entries(ethereum.sha3(domain)), ethereum));
 };
 
