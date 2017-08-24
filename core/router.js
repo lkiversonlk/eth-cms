@@ -176,13 +176,13 @@ module.exports = {
         // 统计
         '/statistics': {
             put: 'statistics'
-        },
+        }
+    },
 
-        // ethereum相关
-        '/eth' : {
-            '/ens' : {
-                all : "ens"
-            }
+    // ethereum相关
+    '/eth' : {
+        '/ens' : {
+            all : "ens"
         }
     },
 
