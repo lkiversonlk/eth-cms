@@ -11,8 +11,12 @@ var logger = require('./lib/logger.lib');
 var router = require('./lib/route-map.lib');
 var errors = require('./core/controllers/errors.controller').error;
 
-var app = express();
+var Web3 = require("web3");
 
+var ethereum = new Web3(new Web3.providers.HttpProvider("http://localhost:8545"));
+
+var app = express();
+app.set("ethereum", ethereum);
 /**
  * 设置模板解析
  */
