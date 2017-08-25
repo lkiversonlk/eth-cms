@@ -163,7 +163,7 @@
                 if(data.error){
                 } else {
                     if(data.i == since_id){
-                        return;
+                        //return;
                     } else {
                         $("#tweet").html(data.t.map(handleEnsBotText).join("") + $("#tweet").html());
                         since_id = data.i;
