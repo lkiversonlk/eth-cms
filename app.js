@@ -11,14 +11,23 @@ var logger = require('./lib/logger.lib');
 var router = require('./lib/route-map.lib');
 var errors = require('./core/controllers/errors.controller').error;
 
-var Web3 = require("web3");
 
-var ethereum = new Web3(new Web3.providers.HttpProvider("http://localhost:8545"));
-var ens = require("./lib/ens.lib");
 
 var app = express();
+
+var Web3 = require("web3");
+var ethereum = new Web3(new Web3.providers.HttpProvider("http://localhost:8545"));
+var ens = require("./lib/ens.lib");
 app.set("ethereum", ethereum);
 app.set("ens", ens(ethereum));
+
+var twitterConf = require("./config/twitter.json");
+var TwitterClient = require("./lib/twitter.lib");
+
+var twitter = new TwitterClient(twitterConf, 2, function (texts) {
+    console.log(texts);
+    app.set("tweets", texts);
+});
 
 /**
  * 设置模板解析

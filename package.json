@@ -41,6 +41,7 @@
     "require-all": "^2.0.0",
     "rimraf": "^2.5.2",
     "serve-favicon": "^2.2.1",
+    "twitter": "^1.7.1",
     "validator": "^4.9.x",
     "web3": "^0.20.1"
   },
