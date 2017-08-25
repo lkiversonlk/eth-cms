@@ -161,10 +161,13 @@
             }
             $.get(url, function (data) {
                 if(data.error){
-
                 } else {
-                    since_id = data.i;
-                    $("#tweet").html(data.t.filter(function(tweet){return tweet.id != since_id; }).map(handleEnsBotText).join("") + $("#tweet").html());
+                    if(data.i == since_id){
+                        return;
+                    } else {
+                        $("#tweet").html(data.t.filter(function(tweet){return tweet.id != since_id; }).map(handleEnsBotText).join("") + $("#tweet").html());
+                        since_id = data.i;
+                    }
                 }
                 setTimeout(UpdateTweet, 2000);
             })
