@@ -18,4 +18,4 @@ public/themes/*
 !public/themes/default
 nohup.out
 PID
-
+config/twitter.json
