@@ -14,59 +14,69 @@
         <ul>
             <li><a href="http://www.ethheyue.com/tutorial/t5">什么是Ethereum域名？</a></li>
         </ul>
-        <div class="input-group" style="margin-top: 15px">
-            <input id="domain" type="text" class="form-control" placeholder="输入域名（不包括.eth)，回车或者点击右侧.eth" aria-describedby="basic-addon2">
-            <span
-                    class="input-group-addon"
-                    id="ok"
-                    style="
+        <div class="row">
+            <div class="col-md-8">
+                <div class="input-group" style="margin-top: 15px">
+                    <input id="domain" type="text" class="form-control" placeholder="输入域名（不包括.eth)，回车或者点击右侧.eth" aria-describedby="basic-addon2">
+                    <span
+                            class="input-group-addon"
+                            id="ok"
+                            style="
                         cursor: pointer;
                         :hover{
                             background: blue;
                         }
                         "
-            >
+                    >
                 .eth
             </span>
-        </div>
+                </div>
 
-        <div>
+                <div>
 
-        </div>
+                </div>
 
-        <div style="margin-top: 40px;">
-            <table class="table table-striped">
-                <tbody>
-                <tr>
-                    <td>当前状态</td>
-                    <td id="stch"></td>
-                </tr>
-                <tr>
-                    <td>注册时间</td>
-                    <td id="date"></td>
-                </tr>
-                <tr>
-                    <td>最高出价(以太币)</td>
-                    <td id="high"></td>
-                </tr>
-                <tr>
-                    <td>第二价格(以太币)</td>
-                    <td id="sec"></td>
-                </tr>
-                <tr>
-                    <td>以太币实时价格(人民币)</td>
-                    <td id="eth_price"></td>
-                </tr>
-                </tbody>
-            </table>
-        </div>
+                <div style="margin-top: 40px;">
+                    <table class="table table-striped">
+                        <tbody>
+                        <tr>
+                            <td>当前状态</td>
+                            <td id="stch"></td>
+                        </tr>
+                        <tr>
+                            <td>注册时间</td>
+                            <td id="date"></td>
+                        </tr>
+                        <tr>
+                            <td>最高出价(以太币)</td>
+                            <td id="high"></td>
+                        </tr>
+                        <tr>
+                            <td>第二价格(以太币)</td>
+                            <td id="sec"></td>
+                        </tr>
+                        <tr>
+                            <td>以太币实时价格(人民币)</td>
+                            <td id="eth_price"></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
 
-        <div>
-            <div id="success" style="margin-top: 20px" class="alert alert-success">
+                <div>
+                    <div id="success" style="margin-top: 20px" class="alert alert-success">
+                    </div>
+                    <div id="error" class="alert alert-danger">
+                    </div>
+                </div>
             </div>
-            <div id="error" class="alert alert-danger">
+            <div class="col-md-4">
+                <ul id="tweet" class="list-group">
+
+                </ul>
             </div>
         </div>
+
 
     </div>
 
@@ -118,5 +128,48 @@
             }
         });
 
+        var startAuction = /^An auction was started/;
+        var endAuction = /was just registered/;
+        var domain=/\b(\S*\.eth)\b/;
+        var price = /\b[\d\.]+ ether\b/;
+        function handleEnsBotText(text) {
+            if(startAuction.test(text)){
+                var match = text.match(domain);
+                if(match.length > 0){
+                    var domainStr = match[0];
+                    return "<li class='list-group-item'>域名" + domainStr + "竞拍刚刚开始</li>";
+                }
+
+            }else if(endAuction.test(text)){
+                var match = text.match(domain);
+                if(match.length > 0){
+                    var domainStr = match[0];
+                    match = text.match(price);
+                    if(match.length > 0){
+                        var priceStr = match[0];
+                        return "<li class='list-group-item'>域名" + domainStr + " 刚刚被注册，价格:" + priceStr + "</li>";
+                    }
+                }
+            };
+        };
+
+        var since_id = null;
+        function UpdateTweet(){
+            var url = "/twitter";
+            if(since_id){
+                url += "?since_id="+since_id
+            }
+            $.get(url, function (data) {
+                if(data.error){
+
+                } else {
+                    since_id = data.i;
+                    $("#tweet").html(data.t.map(handleEnsBotText).join("") + $("#tweet").html());
+                }
+                setTimeout(UpdateTweet, 2000);
+            })
+        }
+
+        UpdateTweet();
     </script>
 </div>

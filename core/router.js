@@ -189,6 +189,10 @@ module.exports = {
         }
     },
 
+    "/twitter" : {
+        all : "twitter"
+    },
+
     /**
      * 网站前台
      */

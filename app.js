@@ -28,6 +28,7 @@ var twitter = new TwitterClient(twitterConf, 2, function (texts) {
     console.log(texts);
     app.set("tweets", texts);
 });
+app.set("twitter", twitter);
 
 /**
  * 设置模板解析
