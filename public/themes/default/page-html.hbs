@@ -164,9 +164,9 @@
 
                 } else {
                     since_id = data.i;
-                    $("#tweet").html(data.t.map(handleEnsBotText).join("") + $("#tweet").html());
+                    $("#tweet").html(data.t.filter(function(tweet){return tweet.id != since_id; }).map(handleEnsBotText).join("") + $("#tweet").html());
                 }
-                //setTimeout(UpdateTweet, 2000);
+                setTimeout(UpdateTweet, 2000);
             })
         }
 
