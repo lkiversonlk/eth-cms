@@ -103,7 +103,7 @@
                         <span
                                 class="input-group-addon"
                         >
-                        .eth
+                        ether
                     </span>
                     </div>
                     <br/>
@@ -116,6 +116,29 @@
                     <br/>
                     <button id="bidbtn" class="btn btn-success input-group form-control">
                         出价
+                    </button>
+                </div>
+
+                <div id="bid_v" style="margin-top: 15px">
+                    <label>如果您已经出价过，可以在这里复验是否已经生效</label>
+                    <div class="input-group">
+                        <input id="bidprice_v" type="text" class="form-control" placeholder="请输入您当时出价" aria-describedby="basic-addon2">
+                        <span
+                                class="input-group-addon"
+                        >
+                        ether
+                    </span>
+                    </div>
+                    <br/>
+                    <div class="input-group">
+                        <input id="secret_v" type="text" class="form-control" placeholder="请输入您当时加密字符串" aria-describedby="basic-addon2">
+                        <span class="input-group-addon">
+                           请保持跟您出价时输入一致
+                        </span>
+                    </div>
+                    <br/>
+                    <button id="bidbtn_v" class="btn btn-success input-group form-control">
+                        校验
                     </button>
                 </div>
             </div>
@@ -165,7 +188,8 @@
 
         toHide = [
             "bid",
-            "start"
+            "start",
+            "bid_v"
         ];
         toHide.forEach(function (t) { $("#" + t).hide() });
 
