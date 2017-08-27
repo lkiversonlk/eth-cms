@@ -175,8 +175,10 @@
             });
         } else {
             // Alert the user he is not in a web3 compatible browser
-            $("#info").html("要使用注册功能请在mist浏览器中打开本地址");
-            $("#info").show();
+            setTimeout(function () {
+                $("#info").html("要使用注册功能请在mist浏览器中打开本地址");
+                $("#info").show();
+            }, 2000);
         }
     </script>
 
