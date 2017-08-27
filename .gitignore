@@ -19,3 +19,4 @@ public/themes/*
 nohup.out
 PID
 config/twitter.json
+public/javascripts/dist.js
