@@ -143,15 +143,30 @@
                 </div>
 
                 <bid id="reveal" style="margin-top: 15px">
+                    <div class="alert alert-success">
+                        <span>当前出价情况</span>
+                        <span id="reveal_info">asdfasdf</span>
+                    </div>
                     <label>如果你有出价，请公示你的出价</label>
                     <div class="input-group">
-                        <input id="bidprice_v" type="text" class="form-control" placeholder="请输入您当时出价" aria-describedby="basic-addon2">
+                        <input id="bidprice_reveal" type="text" class="form-control" placeholder="请输入您当时出价" aria-describedby="basic-addon2">
                         <span
                                 class="input-group-addon"
                         >
                         ether
-                    </span>
+                        </span>
                     </div>
+                    <br/>
+                    <div class="input-group">
+                        <input id="secret_reveal" type="text" class="form-control" placeholder="请输入您当时加密字符串" aria-describedby="basic-addon2">
+                        <span class="input-group-addon">
+                           请保持跟您出价时输入一致
+                        </span>
+                    </div>
+                    <br/>
+                    <button id="bidbtn_reveal" class="btn btn-success input-group form-control">
+                        公示
+                    </button>
                 </bid>
             </div>
         </div>
@@ -179,6 +194,7 @@
                     text = "ens域名注册Dapp启动成功, 但没有eth账户连接";
                 } else {
                     text = "ens域名注册Dapp启动成功，连接账户" + a[0];
+                    OWNER = a[0];
                 }
 
                 setTimeout(function () {
@@ -201,7 +217,8 @@
         toHide = [
             "bid",
             "start",
-            "bid_v"
+            "bid_v",
+            "reveal"
         ];
         toHide.forEach(function (t) { $("#" + t).hide() });
 
