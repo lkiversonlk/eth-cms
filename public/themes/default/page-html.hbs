@@ -141,6 +141,18 @@
                         校验
                     </button>
                 </div>
+
+                <bid id="reveal" style="margin-top: 15px">
+                    <label>如果你有出价，请公示你的出价</label>
+                    <div class="input-group">
+                        <input id="bidprice_v" type="text" class="form-control" placeholder="请输入您当时出价" aria-describedby="basic-addon2">
+                        <span
+                                class="input-group-addon"
+                        >
+                        ether
+                    </span>
+                    </div>
+                </bid>
             </div>
         </div>
     </div>
@@ -176,7 +188,7 @@
         } else {
             // Alert the user he is not in a web3 compatible browser
             setTimeout(function () {
-                $("#error").html("要使用注册功能请在mist浏览器中打开本地址");
+                $("#error").html("要使用注册功能请在<a href='https://github.com/ethereum/mist/releases'>mist浏览器</a>中打开本地址");
                 $("#error").show();
             }, 2000);
         }
