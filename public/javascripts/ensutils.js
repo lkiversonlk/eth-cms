@@ -128,17 +128,15 @@ function ensDappStart(web3) {
                                 $("#info").html("出价失败，错误：" + err.toString());
                                 console.log(err);
                             } else {
-                                $("#info").html("出价成功！transaction number:" + result + ", 等待请求写入全网中");
+                                $("#info").html("出价成功！请一定记住你设置的secret：" + secret + "和bid哈希码(之后公示阶段要用到！)：" + bidObj.shaBid);
                                 console.log(result);
                             }
                         });
                 }
             });
-
-
         });
-
     }
+
     return onDomain;
 };
 
