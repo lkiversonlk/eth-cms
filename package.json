@@ -25,6 +25,8 @@
     "compression": "^1.6.1",
     "connect-mongo": "^1.1.0",
     "cookie-parser": "^1.4.1",
+    "eth-registrar-ens": "^0.8.4",
+    "ethereum-ens": "^0.7.1",
     "express": "^4.13.4",
     "express-hbs": "^0.8.4",
     "express-session": "^1.13.0",

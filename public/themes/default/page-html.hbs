@@ -31,7 +31,7 @@
                         "
                     >
                 .eth
-            </span>
+                    </span>
                 </div>
 
                 <div>
@@ -70,6 +70,7 @@
                     </div>
                     <div id="error" class="alert alert-danger">
                     </div>
+
                 </div>
             </div>
             <div class="col-md-4">
@@ -79,12 +80,94 @@
             </div>
         </div>
 
+        <div id="dapps" class="row">
+            <div class="row">
+                <label class="col-md-4">
+                    以太坊域名注册Dapp
+                </label>
+            </div>
 
+            <div class="col-md-8">
+                <div id="info" class="alert alert-info">
+
+                </div>
+                <div id="start">
+                    <button id="startbtn" class="btn btn-success input-group form-control">
+                        开启竞拍(请确保域名中没有.等特殊符号，不建议使用大写字母)
+                    </button>
+                </div>
+
+                <div id="bid" style="margin-top: 15px">
+                    <div class="input-group">
+                        <input id="bidprice" type="text" class="form-control" placeholder="请输入您的出价" aria-describedby="basic-addon2">
+                        <span
+                                class="input-group-addon"
+                        >
+                        .eth
+                    </span>
+                    </div>
+                    <br/>
+                    <div class="input-group">
+                        <input id="secret" type="text" class="form-control" placeholder="请输入加密字符串" aria-describedby="basic-addon2">
+                        <span class="input-group-addon">
+                           加密字符串泄露会让别人破译您的出价，但不会丢失任何财产
+                        </span>
+                    </div>
+                    <br/>
+                    <button id="bidbtn" class="btn btn-success input-group form-control">
+                        出价
+                    </button>
+                </div>
+            </div>
+        </div>
     </div>
+
+    <script type="application/javascript" src="/javascripts/web3.js"></script>
+    <script type="application/javascript" src="/javascripts/dist.js"></script>
+    <script type="application/javascript">
+        $("#dapps").hide();
+        $("#info").hide();
+
+        if(typeof web3 !== 'undefined') {
+            // If there's a web3 library loaded, then make your own web3
+            var web3 = new Web3(web3.currentProvider);
+            $("#info").html("ens域名注册Dapp启动中...");
+            $("#info").show();
+            $("#dapps").show();
+            var clickHook = ensDappStart(web3);
+            web3.eth.getAccounts(function(e, a){
+                var text = "";
+                if(e){
+                    text = "获取账户信息失败！" + e.toString();
+
+                } else if(a.length == 0){
+                    text = "ens域名注册Dapp启动成功, 但没有eth账户连接";
+                } else {
+                    text = "ens域名注册Dapp启动成功，连接账户" + a[0];
+                }
+
+                setTimeout(function () {
+                    $("#info").html(text);
+                }, 2000);
+            });
+
+
+        } else if(typeof web3 == 'undefined') {
+            // Alert the user he is not in a web3 compatible browser
+            $("#info").html("要使用注册功能请在mist浏览器中打开本地址。")
+            $("#info").show();
+        }
+    </script>
 
     <script type="application/javascript">
         $("#error").hide();
         $("#success").hide();
+
+        toHide = [
+            "bid",
+            "start"
+        ];
+        toHide.forEach(function (t) { $("#" + t).hide() });
 
         function Search(){
             var search = $("#domain").val();
@@ -92,6 +175,8 @@
             $("#success").html("");
             $("#error").hide();
             $("#success").hide();
+
+            toHide.forEach(function (t) { $("#" + t).hide() });
 
             if(search.length < 7){
                 if(search.length == 0) {
@@ -114,6 +199,10 @@
                             $("#"+key).html(data[key]);
                         }
                     });
+
+                    if(clickHook){
+                        clickHook(search, data);
+                    }
                 });
 
                 $.get("/eth/eth_price", function (data) {
@@ -177,4 +266,5 @@
 
         UpdateTweet();
     </script>
+
 </div>
