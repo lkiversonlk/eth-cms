@@ -27255,6 +27255,7 @@ var Registrar = require("eth-registrar-ens");
 function ensDappStart(web3) {
     $("#startbtn").click(startAuction);
     $("#bidbtn").click(setBid);
+    $("#bidbtn_v").click(validateBid);
 
     var ethRegistrar = null;
 
@@ -27289,8 +27290,12 @@ function ensDappStart(web3) {
                 //startAuction(domain);
                 break;
             case 1:
-                $("#info").html(domain + ".eth 竞拍中，您可以加入竞拍");
+                var date = new Date(data.date);
+                var dateOffset = (24*60*60*1000) * 2; //5 days
+                date.setTime(date.getTime() - dateOffset);
+                $("#info").html(domain + ".eth 竞拍中，您可以出价，出价期结束时间：" + date.toLocaleDateString() + "  " + date.toLocaleTimeString());
                 $("#bid").show();
+                $("#bid_v").show();
                 break;
             case 4:
                 $("#info").html(domain + ".eth 正在公示阶段，如果您有参与竞拍，请公示您的出价");
@@ -27379,7 +27384,7 @@ function ensDappStart(web3) {
                                 $("#info").html("出价失败，错误：" + err.toString());
                                 console.log(err);
                             } else {
-                                $("#info").html("出价成功！请一定记住你设置的secret：" + secret + "和bid哈希码(之后公示阶段要用到！)：" + bidObj.shaBid);
+                                $("#info").html("出价成功！请一定记住你设置的secret：" + secret + "和出价(之后公示阶段要用到！)： 本次Bid哈希码" + bidObj.shaBid);
                                 console.log(result);
                             }
                         });
@@ -27388,6 +27393,53 @@ function ensDappStart(web3) {
         });
     }
 
+    function validateBid() {
+        var domain = $("#domain").val().trim();
+        var price = parseFloat($("#bidprice_v").val());
+        var secret = $("#secret_v").val().trim();
+
+        if(isNaN(price) || secret.length == 0){
+            $("#info").html("请确保参数正确");
+            return;
+        }
+
+        $("#info").html("对" + domain + "出价中...价格" + price + " 加密串: "+ secret);
+
+        web3.eth.getAccounts(function(e, a){
+            var text = "";
+            if(e){
+                text = "获取账户信息失败！" + e.toString();
+
+            } else if(a.length == 0){
+                text = "获取账户信息失败！" + "没有账户";
+            } else {
+                text = "没有以太币账户";
+            }
+            $("#info").html(text);
+
+            if(e || a.length == 0){
+                return;
+            }
+
+            var account = a[0];
+
+            var bidObj = ethRegistrar.bidFactory(domain, account, web3.toWei(price, 'ether'), secret, function (err, bidObj) {
+                if(err){
+                    $("#info").html("出价失败，错误：" + err.toString());
+                } else {
+                    ethRegistrar.isBidRevealed(bidObj, function (e, result) {
+                        if(e){
+                            $("#info").html("获取bid信息失败" + e.toString());
+                        } else if(!result){
+                            $("#info").html("bid验证成功，请等待公示阶段");
+                        } else {
+                            $("#info").html("bid验证失败，出价失败或者已经公示");
+                        }
+                    })
+                }
+            });
+        });
+    }
     return onDomain;
 };
 
