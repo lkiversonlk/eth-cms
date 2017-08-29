@@ -142,7 +142,7 @@
                     </button>
                 </div>
 
-                <bid id="reveal" style="margin-top: 15px">
+                <div id="reveal" style="margin-top: 15px">
                     <div class="alert alert-success">
                         <span>当前出价情况</span>
                         <span id="reveal_info">asdfasdf</span>
@@ -167,7 +167,11 @@
                     <button id="bidbtn_reveal" class="btn btn-success input-group form-control">
                         公示
                     </button>
-                </bid>
+                </div>
+
+                <div id="finalize" style="margin-top: 15px">
+                    <button id="finalize_btn" class="btn btn-success">立刻领取你的域名吧！</button>
+                </div>
             </div>
 
             <div class="col-md-4">
@@ -236,7 +240,8 @@
             "bid",
             "start",
             "bid_v",
-            "reveal"
+            "reveal",
+            "finalize"
         ];
         toHide.forEach(function (t) { $("#" + t).hide() });
 

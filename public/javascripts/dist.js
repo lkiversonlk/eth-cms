@@ -27517,6 +27517,7 @@ function ensDappStart(web3) {
 
                         //已经是owner，肯定不用再出价了
                         $("#reveal").hide();
+                        $("#info").html(domain + ".eth正在公示阶段，当前胜者就是你啦！");
                     }
                 }
                 $("#reveal_info").html("最高价: " + web3.fromWei(e.highestBid, "ether") + " 第二高价:" + web3.fromWei(e.value, "ether") + " 当前owner: " + owner);
@@ -27543,6 +27544,7 @@ function ensDappStart(web3) {
                             updateBidHistory();
                         } else if(owner_addr == '0x00'){
                             //not determined yet
+                            $("#finalize").show();
                             if(entry.deed){
                                 if(entry.deed.owner == OWNER){
                                     $("#info").html("你已经抢到域名" + domain + ".eth了！" +
