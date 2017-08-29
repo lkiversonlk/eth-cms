@@ -27509,6 +27509,8 @@ function ensDappStart(web3) {
                     owner = e.deed.owner;
                     if(owner == OWNER){
                         owner = "就是你啦！"
+                        addBidHistory(COOKIE_PROP_BID, {name: domain, price: web3.fromWei(e.highestBid, "ether")})
+                        updateBidHistory()
                     }
                 }
                 $("#reveal_info").html("最高价: " + web3.fromWei(e.highestBid, "ether") + " 第二高价:" + web3.fromWei(e.value, "ether") + " 当前owner: " + owner);
