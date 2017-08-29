@@ -27257,6 +27257,7 @@ function ensDappStart(web3) {
     $("#bidbtn").click(setBid);
     $("#bidbtn_v").click(validateBid);
     $("#bidbtn_reveal").click(revealBid);
+    $("#finalize_btn").click(finalizeDomain);
     var ethRegistrar = null;
     var ens = null;
     function initEthRegistrar(){
@@ -27584,7 +27585,52 @@ function ensDappStart(web3) {
             }
         })
     }
-    
+
+    function finalizeDomain(){
+        var domain = $("#domain").val().trim();
+
+        $("#info").html("领取" + domain + ".eth中...");
+
+        web3.eth.getAccounts(function(e, a){
+            var text = "";
+            if(e){
+                text = "获取账户信息失败！" + e.toString();
+
+            } else if(a.length == 0){
+                text = "获取账户信息失败！" + "没有账户";
+            } else {
+                text = "没有以太币账户";
+            }
+            $("#info").html(text);
+
+            if(e || a.length == 0){
+                return;
+            }
+
+            var account = a[0];
+
+            var bidObj = ethRegistrar.bidFactory(domain, account, web3.toWei(price, 'ether'), secret, function (err, bidObj) {
+                if(err){
+                    $("#info").html("出价失败，错误：" + err.toString());
+                } else {
+                    ethRegistrar.unsealBid(bidObj,
+                        {
+                            from:account,
+                            gas: 470000
+                        },
+                        function (e, result) {
+                            if(e){
+                                $("#info").html("获取bid信息失败" + e.toString());
+                            } else {
+                                $("#info").html("bid验证成功，请等待公示阶段");
+                            }
+                        }
+                    )
+                }
+            });
+        });
+    }
+
     function updateBidHistory() {
         $("#bid_history").html("");
         var history = loadCookie(COOKIE_PROP_BID);
