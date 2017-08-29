@@ -50,6 +50,8 @@ function ensDappStart(web3) {
                 $("#reveal").show();
                 loadEntryInfo(domain);
                 break;
+            case 5:
+                $("#info").html(domain + ".eth 已经被")
             default:
                 $("#info").html(domain + ".eth 无法竞拍");
                 break;
@@ -257,9 +259,12 @@ function ensDappStart(web3) {
                 if(e.deed){
                     owner = e.deed.owner;
                     if(owner == OWNER){
-                        owner = "就是你啦！"
+                        owner = "就是你啦！";
                         addBidHistory(COOKIE_PROP_BID, {name: domain, price: web3.fromWei(e.highestBid, "ether")})
-                        updateBidHistory()
+                        updateBidHistory();
+
+                        //已经是owner，肯定不用再出价了
+                        $("#reveal").hide();
                     }
                 }
                 $("#reveal_info").html("最高价: " + web3.fromWei(e.highestBid, "ether") + " 第二高价:" + web3.fromWei(e.value, "ether") + " 当前owner: " + owner);
