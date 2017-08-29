@@ -20,7 +20,7 @@ function Record(entry, web3){
 
     return {
         sti : status_int,
-        owner: address,
+        deed: address,
         date: date,
         stch : status_ch,
         high : highestBid,
