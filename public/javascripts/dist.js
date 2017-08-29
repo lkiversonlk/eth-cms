@@ -27274,7 +27274,6 @@ function ensDappStart(web3) {
 
     initEthRegistrar();
 
-
     function onDomain(domain, data) {
         console.log("start registrar for domain " + domain);
 
@@ -27387,7 +27386,7 @@ function ensDappStart(web3) {
                                 console.log(err);
                             } else {
                                 $("#info").html("出价成功！请一定记住你设置的secret：" + secret + "和出价(之后公示阶段要用到！)： 本次Bid哈希码" + bidObj.shaBid);
-                                addBidHistory(COOKIE_PROP_BID, {name: domain, price: price, secret: secret, status: "竞价中，已出价"});
+                                addBidHistory(COOKIE_PROP_BID, {name: domain, price: price, secret: secret});
                                 updateBidHistory();
                                 console.log(result);
                             }
@@ -27436,7 +27435,7 @@ function ensDappStart(web3) {
                             $("#info").html("获取bid信息失败" + e.toString());
                         } else if(!result){
                             $("#info").html("bid验证成功，请等待公示阶段");
-                            addBidHistory(COOKIE_PROP_BID, {name: domain, price: price, secret: secret, status: "公示中"});
+                            addBidHistory(COOKIE_PROP_BID, {name: domain, price: price, secret: secret});
                             updateBidHistory();
                         } else {
                             $("#info").html("bid验证失败，出价失败或者已经公示");
@@ -27522,7 +27521,9 @@ function ensDappStart(web3) {
         var history = loadCookie(COOKIE_PROP_BID);
         if(history && Array.isArray(history)){
             history.forEach(function (his) {
-                $("#bid_history").append("<tr><td>" + his.name + "</td><td>" + his.price + "</td><td>" + his.secret + "</td><td>" + his.status + "</td></tr>")
+                $.get("/eth/ens?domain=" + his.name, function (data) {
+                    $("#bid_history").append("<tr><td>" + his.name + "</td><td>" + his.price + "</td><td>" + his.secret + "</td><td>" + data.stch + "</td></tr>")
+                });
             });
         }
     }
