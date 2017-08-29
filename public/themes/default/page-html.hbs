@@ -169,10 +169,28 @@
                     </button>
                 </bid>
             </div>
+
+            <div class="col-md-4">
+                <label>已有竞价</label>
+                <table>
+                    <thead>
+                    <tr>
+                        <th>域名</th>
+                        <th>出价</th>
+                        <th>secret</th>
+                        <th>状态</th>
+                    </tr>
+                    </thead>
+                    <tbody id="bid_history">
+
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
 
     <script type="application/javascript" src="/javascripts/web3.js"></script>
+    <script type="application/javascript" src="/javascripts/cookie.js"></script>
     <script type="application/javascript" src="/javascripts/dist.js"></script>
     <script type="application/javascript">
         $("#dapps").hide();
@@ -318,6 +336,8 @@
         }
 
         UpdateTweet();
+
+
     </script>
 
 </div>
