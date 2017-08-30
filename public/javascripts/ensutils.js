@@ -1,5 +1,6 @@
 var ENS = require("ethereum-ens");
 var Registrar = require("eth-registrar-ens");
+var async = require("async");
 
 function ensDappStart(web3) {
     $("#startbtn").click(startAuction);
@@ -381,33 +382,38 @@ function ensDappStart(web3) {
         var hisData = loadCookie(COOKIE_PROP_BID);
 
         if(hisData && Array.isArray(hisData)){
-            hisData.forEach(function (his) {
-                $.get("/eth/ens?domain=" + his.name, function (data) {
-                    his.status = data.stch;
 
-                    //$("#bid_history").append("<tr><td>" + his.name + "</td><td>" + his.price + "</td><td>" + his.secret + "</td><td>" + data.stch + "</td></tr>")
-                });
-            });
-
-            $('#bid_his_table').bootstrapTable({
-                data: hisData,
-                height: "280px",
-                pagination: true,
-                columns: [{
-                    field: 'name',
-                    title: '域名'
-                }, {
-                    field: 'secret',
-                    title: 'Secret'
-                }, {
-                    field: 'price',
-                    title: '出价'
-                }, {
-                    field: "status",
-                    title: "状态",
-                    sortable: true,
-                }],
-            });
+            async.forEach(
+                hisData,
+                function(history, callback){
+                    $.get("/eth/ens?domain=" + history.name, function (data) {
+                        history.status = data.stch;
+                        callback()
+                        //$("#bid_history").append("<tr><td>" + his.name + "</td><td>" + his.price + "</td><td>" + his.secret + "</td><td>" + data.stch + "</td></tr>")
+                    });
+                },
+                function () {
+                    $('#bid_his_table').bootstrapTable({
+                        data: hisData,
+                        height: "280px",
+                        pagination: true,
+                        columns: [{
+                            field: 'name',
+                            title: '域名'
+                        }, {
+                            field: 'secret',
+                            title: 'Secret'
+                        }, {
+                            field: 'price',
+                            title: '出价'
+                        }, {
+                            field: "status",
+                            title: "状态",
+                            sortable: true,
+                        }],
+                    });
+                }
+            )
         }
     }
     updateBidHistory();

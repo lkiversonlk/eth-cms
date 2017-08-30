@@ -3,11 +3,11 @@ var logger = require('../../lib/logger.lib');
 
 var status = [
     "尚未被注册",
-    "尚未被注册，正在竞拍中",
+    "正在竞拍中",
     "已经被注册",
     "禁止注册",
-    "竞拍结束，正在公示阶段",
-    "审核中，尚未放出"
+    "正在公示阶段",
+    "尚未放出"
 ];
 
 function Record(entry, web3){
