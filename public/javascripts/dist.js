@@ -27626,14 +27626,37 @@ function ensDappStart(web3) {
         });
     }
 
+
     function updateBidHistory() {
         $("#bid_history").html("");
-        var history = loadCookie(COOKIE_PROP_BID);
-        if(history && Array.isArray(history)){
-            history.forEach(function (his) {
+        var hisData = loadCookie(COOKIE_PROP_BID);
+
+        if(hisData && Array.isArray(hisData)){
+            hisData.forEach(function (his) {
                 $.get("/eth/ens?domain=" + his.name, function (data) {
-                    $("#bid_history").append("<tr><td>" + his.name + "</td><td>" + his.price + "</td><td>" + his.secret + "</td><td>" + data.stch + "</td></tr>")
+                    his.status = data.stch;
+
+                    //$("#bid_history").append("<tr><td>" + his.name + "</td><td>" + his.price + "</td><td>" + his.secret + "</td><td>" + data.stch + "</td></tr>")
                 });
+            });
+
+            $('#bid_his_table').bootstrapTable({
+                data: hisData,
+                height: "280px",
+                pagination: true,
+                columns: [{
+                    field: 'name',
+                    title: '域名'
+                }, {
+                    field: 'secret',
+                    title: 'Secret'
+                }, {
+                    field: 'price',
+                    title: '出价'
+                }, {
+                    field: "status",
+                    title: "状态"
+                }]
             });
         }
     }
