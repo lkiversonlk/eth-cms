@@ -27543,15 +27543,15 @@ function ensDappStart(web3) {
                                 "二价:" + price);
                             addBidHistory(COOKIE_PROP_BID, {name: domain, price: price});
                             updateBidHistory();
-                        } else if(owner_addr == '0x00'){
+                        } else if(owner_addr == '0x0000000000000000000000000000000000000000'){
                             //not determined yet
-                            $("#finalize").show();
                             if(entry.deed){
                                 if(entry.deed.owner == OWNER){
                                     $("#info").html("你已经抢到域名" + domain + ".eth了！" +
                                         "出价:" + web3.fromWei(entry.deed.highestBid, "ether") +
                                         "二价:" + web3.fromWei(entry.deed.value)+
                                         "现在结算竞拍，拿回剩余的ether吧！")
+                                    $("#finalize").show();
                                 } else {
                                     if(entry.deed){
                                         $("#info").html("域名" + domain + ".eth被" + entry.deed.owner + "抢到了，等待他结算中" +
@@ -27609,25 +27609,20 @@ function ensDappStart(web3) {
 
             var account = a[0];
 
-            var bidObj = ethRegistrar.bidFactory(domain, account, web3.toWei(price, 'ether'), secret, function (err, bidObj) {
-                if(err){
-                    $("#info").html("出价失败，错误：" + err.toString());
-                } else {
-                    ethRegistrar.unsealBid(bidObj,
-                        {
-                            from:account,
-                            gas: 470000
-                        },
-                        function (e, result) {
-                            if(e){
-                                $("#info").html("获取bid信息失败" + e.toString());
-                            } else {
-                                $("#info").html("bid验证成功，请等待公示阶段");
-                            }
-                        }
-                    )
+            var bidObj = ethRegistrar.finalizeAuction(domain,
+                {
+                    from:account,
+                    gas: 470000
+                },
+                function (e, result) {
+                    if(e){
+                        $("#info").html("领取域名失败：" + e.toString())
+                    } else {
+                        $("#info").html("领取域名成功！");
+                        $("#finalize_btn").hide();
+                    }
                 }
-            });
+            )
         });
     }
 
