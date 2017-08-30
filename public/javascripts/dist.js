@@ -27655,8 +27655,9 @@ function ensDappStart(web3) {
                     title: '出价'
                 }, {
                     field: "status",
-                    title: "状态"
-                }]
+                    title: "状态",
+                    sortable: true,
+                }],
             });
         }
     }
