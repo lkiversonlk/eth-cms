@@ -400,7 +400,8 @@ function ensDappStart(web3) {
                         search: true,
                         columns: [{
                             field: 'name',
-                            title: '域名'
+                            title: '域名',
+                            sortable: true,
                         }, {
                             field: 'secret',
                             title: 'Secret'
