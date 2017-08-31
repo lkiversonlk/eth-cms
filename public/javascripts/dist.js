@@ -28917,6 +28917,7 @@ function ensDappStart(web3) {
                         data: hisData,
                         height: "280px",
                         pagination: true,
+                        search: true,
                         columns: [{
                             field: 'name',
                             title: '域名'
