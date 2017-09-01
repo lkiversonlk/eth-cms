@@ -369,7 +369,7 @@ function ensDappStart(web3) {
                         $("#info").html("领取域名失败：" + e.toString())
                     } else {
                         $("#info").html("领取域名成功！");
-                        $("#finalize_btn").hide();
+                        $("#finalize").hide();
                     }
                 }
             )
