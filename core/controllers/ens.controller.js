@@ -17,7 +17,9 @@ function Record(entry, web3){
     var highestBid = web3.fromWei(entry[4], "ether");
     var secondBid = web3.fromWei(entry[3], "ether");
     var status_ch = status[status_int];
-
+    if (highestBid == 0 && status_int == 2){
+        status_ch = "等待领取"
+    }
     return {
         sti : status_int,
         deed: address,
