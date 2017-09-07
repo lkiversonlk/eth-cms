@@ -181,6 +181,10 @@ module.exports = {
 
     // ethereum相关
     '/eth' : {
+        '/*': {
+            all: 'cache'
+        },
+
         '/ens' : {
             all : "ens"
         },

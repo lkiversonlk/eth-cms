@@ -1,6 +1,9 @@
 var async = require('async');
 var logger = require('../../lib/logger.lib');
 
+
+
+
 var status = [
     "尚未注册",
     "正在竞拍",

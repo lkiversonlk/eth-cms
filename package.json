@@ -19,6 +19,7 @@
     "cms"
   ],
   "dependencies": {
+    "apicache": "^0.11.0",
     "async": "^1.5.2",
     "bluebird": "^3.4.6",
     "body-parser": "^1.14.2",
