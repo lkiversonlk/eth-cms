@@ -1,0 +1,83 @@
+<div class="container">
+    <ol class="breadcrumb">
+        <li><a href="/">首页</a></li>
+        {{#foreach category.breadcrumb}}
+            <li><a href="{{path}}">{{name}}</a></li>
+        {{/foreach}}
+        <li class="active">{{text category.name words="15"}}</li>
+    </ol>
+    <div class="page-header text-center">
+        <h1>{{category.name}}</h1>
+    </div>
+
+    <div class="content">
+        <ul>
+            <li><a href="/tutorial/t5">什么是Ethereum域名</a></li>
+            <li><a href="/tutorial/t6">通过ens registry注册Ethereum域名</a></li>
+            <li><a href="/tutorial/t7">通过本站注册Ethereum域名</a></li>
+        </ul>
+        <div class="row">
+            <div class="col-md-8">
+                <div class="input-group" style="margin-top: 15px">
+                    <input id="domain" type="text" class="form-control" placeholder="输入域名（不包括.eth)，回车或者点击右侧.eth" aria-describedby="basic-addon2">
+                    <span
+                            class="input-group-addon"
+                            id="ok"
+                            style="
+                        cursor: pointer;
+                        :hover{
+                            background: blue;
+                        }
+                        "
+                    >
+                .eth
+                    </span>
+                </div>
+
+                <div>
+
+                </div>
+
+                <div style="margin-top: 40px;">
+                    <table class="table table-striped">
+                        <tbody>
+                        <tr>
+                            <td>当前状态</td>
+                            <td id="stch"></td>
+                        </tr>
+                        <tr>
+                            <td>注册时间</td>
+                            <td id="date"></td>
+                        </tr>
+                        <tr>
+                            <td>最高出价(以太币)</td>
+                            <td id="high"></td>
+                        </tr>
+                        <tr>
+                            <td>第二价格(以太币)</td>
+                            <td id="sec"></td>
+                        </tr>
+                        <tr>
+                            <td>以太币实时价格(人民币)</td>
+                            <td id="eth_price"></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div>
+                    <div id="success" style="margin-top: 20px" class="alert alert-success">
+                    </div>
+                    <div id="error" class="alert alert-danger">
+                    </div>
+
+                </div>
+            </div>
+            <div class="col-md-4">
+                <ul id="tweet" class="list-group" style="overflow-y: scroll; max-height: 280px;">
+
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
