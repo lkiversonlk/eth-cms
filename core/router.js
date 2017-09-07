@@ -193,6 +193,16 @@ module.exports = {
         }
     },
 
+    '/domain': {
+        post : "domain.insert",
+
+        "/*": {
+            all: 'cache'
+        },
+        get : "domain.search"
+
+    },
+
     "/twitter" : {
         all : "twitter"
     },

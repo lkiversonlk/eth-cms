@@ -11,8 +11,6 @@ var logger = require('./lib/logger.lib');
 var router = require('./lib/route-map.lib');
 var errors = require('./core/controllers/errors.controller').error;
 
-
-
 var app = express();
 
 var Web3 = require("web3");
@@ -23,6 +21,24 @@ app.set("ens", ens(ethereum));
 
 var twitterConf = require("./config/twitter.json");
 var TwitterClient = require("./lib/twitter.lib");
+
+var leveldbConf = require("./config/leveldb.json");
+var leveldown = require("leveldown");
+
+var ldb = leveldown(leveldbConf.location);
+ldb.open({createIfMissing: true}, function (err) {
+    if(err){
+        console.log("ldb open failed :" + err.toString());
+        process.exit(-1);
+    }
+});
+
+if(ldb) {
+    app.set("ldb", ldb);
+} else {
+    console.log("fail to open leveldb");
+    process.exit(-1)
+}
 
 var twitter = new TwitterClient(twitterConf, 2, function (texts) {
     console.log(texts);
