@@ -270,7 +270,8 @@
                 }
             } else {
                 console.log("trying to query domain" + search);
-                $.get("/eth/ens?domain=" + search, function (data) {
+                //add a random to prevent cache
+                $.get("/eth/ens?domain=" + search + "&r="+Date.now(), function (data) {
                     $("#success").html("查询成功");
                     $("#success").show();
                     Object.keys(data).forEach(function(key){
