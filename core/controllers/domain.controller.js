@@ -18,8 +18,13 @@ exports.search = function (req, res) {
             if(err) {
                 return res.json([]);
             } else {
-
-                res.send(JSON.parse(info));
+                try{
+                    var data = JSON.parse(info);
+                    return res.send(data);
+                } catch (e) {
+                    console.log("fail to send json :" + info.toString() + "  reason: " + e.toString());
+                    return res.json({});
+                }
             }
         });
     } else {
@@ -45,7 +50,7 @@ exports.insert = function (req, res) {
                 var ens_owner = ens.ens.owner(ens.namehash(data.domain + ".eth"));
 
                 if(owner == ens_owner){
-                    ldb.put(data.domain, JSON.stringify(data.info), function (err) {
+                    ldb.put(data.domain, JSON.stringify(data), function (err) {
                         if(err){
                             console.log("fail to save domain info, " + err);
                             return res.redirect("/notice?error=内部错误");
