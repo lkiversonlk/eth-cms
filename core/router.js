@@ -230,6 +230,7 @@ module.exports = {
     // 栏目页
     '/:column*': {get: 'column'},
 
+    '/notice' : {get: 'notice'},
     // 单页
     '/:page*': {get: 'page'},
 

@@ -39,7 +39,7 @@ exports.insert = function (req, res) {
             //verify data.owner
             var owner = data.owner;
             if(!owner || owner.length < 1){
-                return res.redirect(req.headers['referer'])
+                return res.redirect("/notice?error=无法获取域名owner");
             } else {
                 var ens = req.app.get("ens");
                 var ens_owner = ens.ens.owner(ens.namehash(data.domain + ".eth"));
@@ -48,21 +48,21 @@ exports.insert = function (req, res) {
                     ldb.put(data.domain, JSON.stringify(data.info), function (err) {
                         if(err){
                             console.log("fail to save domain info, " + err);
-                            return res.redirect(req.headers['referer'])
+                            return res.redirect("/notice?error=内部错误");
                         } else {
-                            return res.redirect(req.headers['referer'])
+                            return res.redirect("/notice?");
                         }
                     })
                 } else {
-                    return res.redirect(req.headers['referer'])
+                    return res.redirect("/notice?error=你不是域名owner");
                 }
             }
         } else {
             console.log("invalid domain post, err + " + result.errors.join("::"));
-            return res.redirect(req.headers['referer'])
+            return res.redirect("/notice?error=提交数据格式错误");
         }
     } else {
-        return res.redirect(req.headers['referer'])
+        return res.redirect("/notice?error=提交数据格式错误");
     }
 };
 
