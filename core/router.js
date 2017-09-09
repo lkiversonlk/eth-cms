@@ -196,9 +196,14 @@ module.exports = {
     '/domain': {
         post : "domain.insert",
 
+        "/all" : {
+            get : "domain.all"
+        },
+
         "/*": {
             all: 'cache'
         },
+
         get : "domain.search"
 
     },

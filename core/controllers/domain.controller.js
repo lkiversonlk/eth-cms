@@ -14,11 +14,12 @@ exports.search = function (req, res) {
 
     if(domain) {
         //query by domain
-        ldb.get(domain, {asBuffer: false}, function (err, info) {
+        ldb.get(domain, {asBuffer: true}, function (err, info) {
             if(err) {
                 return res.json([]);
             } else {
-                res.send(info);
+
+                res.send(JSON.parse(info));
             }
         });
     } else {
@@ -34,6 +35,7 @@ exports.insert = function (req, res) {
     if(data) {
         var result = v.validate(data, domain_info_schema);
         if(result.valid){
+            data.info.time = Date.now();
             ldb.put(data.domain, JSON.stringify(data.info), function (err) {
                 if(err){
                     console.log("fail to save domain info, " + err);
@@ -48,5 +50,15 @@ exports.insert = function (req, res) {
         }
     } else {
         return res.sendStatus(500);
+    }
+};
+
+exports.all = function (req, res, next) {
+    var domainCache = req.app.get("domain-cache");
+    if(domainCache) {
+        res.json(domainCache.all());
+    } else {
+        console.log("fail to get domain cache");
+        res.json([]);
     }
 };

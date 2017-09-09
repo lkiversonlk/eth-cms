@@ -10,7 +10,7 @@ var session = require('./lib/session.lib');
 var logger = require('./lib/logger.lib');
 var router = require('./lib/route-map.lib');
 var errors = require('./core/controllers/errors.controller').error;
-
+var DomainCache = require("./core/services/domain-cache");
 var app = express();
 
 var Web3 = require("web3");
@@ -30,15 +30,13 @@ ldb.open({createIfMissing: true}, function (err) {
     if(err){
         console.log("ldb open failed :" + err.toString());
         process.exit(-1);
+    } else {
+        app.set("ldb", ldb);
+        var domainCache = new DomainCache(ldb);
+        domainCache.init();
+        app.set("domain-cache", domainCache);
     }
 });
-
-if(ldb) {
-    app.set("ldb", ldb);
-} else {
-    console.log("fail to open leveldb");
-    process.exit(-1)
-}
 
 var twitter = new TwitterClient(twitterConf, 2, function (texts) {
     console.log(texts);
