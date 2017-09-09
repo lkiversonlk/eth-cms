@@ -59,24 +59,42 @@
                     <div id="error" class="alert alert-danger">
                     </div>
                 </div>
+
+                <form id="post-domain" method="post" action="/domain">
+                    <div class="form-group">
+                        <div class="input-group">
+                            <input name="domain" class="form-control" placeholder="域名">
+                            <span class="input-group-addon">
+                            .eth
+                            </span>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="input-group">
+                            <input name="email" class="form-control">
+                            <span class="input-group-addon">
+                            联系邮箱
+                            </span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="input-group">
+                            <input name="more" class="form-control" placeholder="不能超过20个字">
+                            <span class="input-group-addon">
+                            备注
+                            </span>
+                        </div>
+                    </div>
+                    <input id="post-domain-owner" name="owner" type="hidden" value="">
+                    <input type="submit" class="form-control btn btn-success">
+                </form>
             </div>
         </div>
 
         <script type="application/javascript" src="/javascripts/web3.js"></script>
+
         <script type="application/javascript" src="/javascripts/handlebars.js"></script>
-
-        <script type="application/javascript">
-            var seq = 'abcdefghijklmnopqrstunvxyz#';
-            /*
-            for(var i = 0; i < seq.length; i ++){
-                $("#domain-list").append(
-                    '<div class="row" id="seq' + i + '">' + seq[i].toUpperCase() + '</div>'
-                )
-            }*/
-
-        </script>
-
-
 
         <script type="application/javascript">
             var domainTpl;
@@ -145,7 +163,46 @@
                     return false;    //<---- Add this line
                 }
             });
+
         </script>
+
+        <script type="application/javascript">
+            $("#post-domain").hide();
+
+            if(typeof web3 !== 'undefined') {
+                // If there's a web3 library loaded, then make your own web3
+                var web3 = new Web3(web3.currentProvider);
+                $("#success").html("ens域名注册Dapp启动中...");
+                $("#success").show();
+                web3.eth.getAccounts(function(e, a){
+                    var text = "";
+                    if(e){
+                        text = "获取账户信息失败！" + e.toString();
+                    } else if(a.length == 0){
+                        text = "ens域名注册Dapp启动成功, 但没有eth账户连接";
+                    } else {
+                        text = "ens域名注册Dapp启动成功，连接账户" + a[0];
+                        OWNER = a[0];
+                        $("#post-domain-owner").val(OWNER);
+                    }
+
+                    setTimeout(function () {
+                        $("#success").html(text);
+                        if(OWNER && OWNER.length > 0) {
+                            $("#post-domain").show();
+                        }
+                    }, 2000);
+                });
+            } else {
+                // Alert the user he is not in a web3 compatible browser
+                setTimeout(function () {
+                    $("#error").html("提交域名请在<a href='http://ethfans.org/wikis/Mist-Mirror'>mist浏览器</a>中打开本地址");
+                    $("#error").show();
+                }, 2000);
+            }
+        </script>
+
+
 
     </div>
 </div>

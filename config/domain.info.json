@@ -2,30 +2,22 @@
   "type": "object",
   "required" : [
     "domain",
-    "info"
+    "email",
+    "more",
+    "owner"
   ],
   "properties": {
     "domain" : {
       "type" : "string"
     },
-    "info" : {
-      "type" : "object",
-      "required" : [
-        "owner",
-        "email",
-        "more"
-      ],
-      "properties" : {
-        "owner" : {
-          "type" : "string"
-        },
-        "email" : {
-          "type" : "string"
-        },
-        "more" : {
-          "type" : "string"
-        }
-      }
+    "owner" : {
+      "type" : "string"
+    },
+    "email" : {
+      "type" : "string"
+    },
+    "more" : {
+      "type" : "string"
     }
   }
 }

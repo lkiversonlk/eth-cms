@@ -30,26 +30,39 @@ exports.search = function (req, res) {
 
 exports.insert = function (req, res) {
     var data = req.body;
-
     var ldb = req.app.get("ldb");
     if(data) {
         var result = v.validate(data, domain_info_schema);
         if(result.valid){
-            data.info.time = Date.now();
-            ldb.put(data.domain, JSON.stringify(data.info), function (err) {
-                if(err){
-                    console.log("fail to save domain info, " + err);
-                    return res.sendStatus(500)
+            data.time = Date.now();
+
+            //verify data.owner
+            var owner = data.owner;
+            if(!owner || owner.length < 1){
+                return res.redirect(req.headers['referer'])
+            } else {
+                var ens = req.app.get("ens");
+                var ens_owner = ens.ens.owner(ens.namehash(data.domain + ".eth"));
+
+                if(owner == ens_owner){
+                    ldb.put(data.domain, JSON.stringify(data.info), function (err) {
+                        if(err){
+                            console.log("fail to save domain info, " + err);
+                            return res.redirect(req.headers['referer'])
+                        } else {
+                            return res.redirect(req.headers['referer'])
+                        }
+                    })
                 } else {
-                    return res.sendStatus(200)
+                    return res.redirect(req.headers['referer'])
                 }
-            })
+            }
         } else {
             console.log("invalid domain post, err + " + result.errors.join("::"));
-            return res.sendStatus(500);
+            return res.redirect(req.headers['referer'])
         }
     } else {
-        return res.sendStatus(500);
+        return res.redirect(req.headers['referer'])
     }
 };
 
