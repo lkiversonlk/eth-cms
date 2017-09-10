@@ -6,6 +6,7 @@ var cache = apicache.middleware;
 var validator = require("jsonschema").Validator;
 var v = new validator();
 var domain_info_schema = require("../../config/domain.info.json");
+var async = require("async");
 
 exports.search = function (req, res) {
     var domain = req.query.domain;
@@ -40,28 +41,41 @@ exports.insert = function (req, res) {
         var result = v.validate(data, domain_info_schema);
         if(result.valid){
             data.time = Date.now();
-
-            //verify data.owner
+            var ens = req.app.get("ens");
+            var domains = data.domain.split(",");
             var owner = data.owner;
             if(!owner || owner.length < 1){
                 return res.redirect("/notice?error=无法获取域名owner");
-            } else {
-                var ens = req.app.get("ens");
-                var ens_owner = ens.ens.owner(ens.namehash(data.domain + ".eth"));
-
-                if(owner == ens_owner){
-                    ldb.put(data.domain, JSON.stringify(data), function (err) {
-                        if(err){
-                            console.log("fail to save domain info, " + err);
-                            return res.redirect("/notice?error=内部错误");
-                        } else {
-                            return res.redirect("/notice?");
-                        }
-                    })
-                } else {
-                    return res.redirect("/notice?error=你不是域名owner");
-                }
             }
+
+            var failedDomain = [];
+            async.forEach(
+                domains,
+                function(domain, callback){
+                    var ens_owner = ens.ens.owner(ens.namehash(domain + ".eth"));
+                    if(owner == ens_owner){
+                        data.domain = domain;
+                        ldb.put(domain, JSON.stringify(data), function (err) {
+                            if(err){
+                                console.log("fail to save domain info, " + err);
+                                failedDomain.push(domain);
+                                return callback();
+                            } else {
+                                return callback();
+                            }
+                        })
+                    } else {
+                        failedDomain.push(domain);
+                        return callback();
+                    }
+                },
+                function () {
+                    if(failedDomain.length > 0){
+                        return res.redirect("/notice?error=域名" + failedDomain.join(",") + "插入失败");
+                    } else {
+                        return res.redirect("/notice");
+                    }
+                });
         } else {
             console.log("invalid domain post, err + " + result.errors.join("::"));
             return res.redirect("/notice?error=提交数据格式错误");
