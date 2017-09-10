@@ -1,11 +1,11 @@
 {{#each this}}
 <div class="row" style="margin-top: 60px">
-    <div style="font-size: 20px; border-bottom: 1px solid #e1e1e1 ">
+    <div style="font-size: 20px; border-bottom: 1px solid #e1e1e1; margin-bottom: 6px;">
         {{upperFromIndex @index}}
     </div>
     {{#each this}}
-        <div class="col-md-2">
-            {{@key}}.eth
+        <div class="panel panel-default pull-left" style="margin-right: 10px">
+            <div class="panel-heading">{{@key}}.eth</div>
         </div>
     {{/each}}
 </div>
