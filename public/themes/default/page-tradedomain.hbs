@@ -116,6 +116,12 @@
                         data = JSON.parse(data);
                     }
                     $("#domain-list").html(domainTpl(data));
+
+                    $(".domain-list-item").click(function (e) {
+                        var text = $(this).text();
+                        $("#domain").val(text);
+                        Search();
+                    });
                 });
             });
         </script>
