@@ -179,7 +179,7 @@
             <!-- Latest compiled and minified JavaScript -->
             <script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.11.1/bootstrap-table.min.js"></script>
             <div class="col-md-4">
-                <label>已有竞价</label>
+                <label>已有竞价 <a id="download">下载</a></label>
                 <table id="bid_his_table">
 
                     <!--
@@ -350,8 +350,28 @@
         }
 
         UpdateTweet();
-
-
     </script>
 
+    <script type="application/javascript">
+        //下载
+        $("#download").click(function () {
+            var hisData = loadCookie(COOKIE_PROP_BID);
+            var csvContent = "data:text/csv;charset=utf-8,domain, price, secret\n";
+            var final = [];
+            hisData.forEach(function(data){
+                var values = [data['name'], data['price'], data['secret']];
+                var line = values.join(",");
+                final.push(line)
+            });
+
+            csvContent += (final.join("\n"));
+            var encoded = encodeURI(csvContent);
+
+            var link = document.createElement("a");
+            link.setAttribute("href", encoded);
+            link.setAttribute("download", "domain.csv");
+            document.body.appendChild(link);
+            link.click();
+        });
+    </script>
 </div>
