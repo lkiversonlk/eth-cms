@@ -179,7 +179,7 @@
             <!-- Latest compiled and minified JavaScript -->
             <script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.11.1/bootstrap-table.min.js"></script>
             <div class="col-md-4">
-                <label>已有竞价 <a id="download">下载</a></label>
+                <label>已有竞价 <a id="download">下载</a></label><input type="file" id="upload" value="上传"/>
                 <table id="bid_his_table">
 
                     <!--
@@ -201,9 +201,7 @@
 
     <script type="application/javascript" src="/javascripts/web3.js"></script>
     <script type="application/javascript" src="/javascripts/dist.js"></script>
-
     <script type="application/javascript" src="/javascripts/cookie.js"></script>
-
     <script type="application/javascript">
         $("#dapps").hide();
         $("#info").hide();
@@ -372,6 +370,10 @@
             link.setAttribute("download", "domain.csv");
             document.body.appendChild(link);
             link.click();
+        });
+
+        $("#upload").click(function () {
+
         });
     </script>
 </div>
