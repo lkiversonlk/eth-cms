@@ -179,7 +179,13 @@
             <!-- Latest compiled and minified JavaScript -->
             <script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.11.1/bootstrap-table.min.js"></script>
             <div class="col-md-4">
-                <label>已有竞价 <a id="download">下载</a></label><input type="file" id="upload" value="上传"/>
+                <div>
+                    <label>已有竞价 <a id="download">下载</a></label>
+                </div>
+                <div>
+                    <input type="file" id="upload"/>
+                </div>
+
                 <table id="bid_his_table">
 
                     <!--
@@ -370,10 +376,6 @@
             link.setAttribute("download", "domain.csv");
             document.body.appendChild(link);
             link.click();
-        });
-
-        $("#upload").click(function () {
-
         });
     </script>
 </div>

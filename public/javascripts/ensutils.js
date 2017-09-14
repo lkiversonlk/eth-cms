@@ -376,7 +376,6 @@ function ensDappStart(web3) {
         });
     }
 
-
     function updateBidHistory() {
         $("#bid_history").html("");
         var hisData = loadCookie(COOKIE_PROP_BID);
@@ -419,6 +418,31 @@ function ensDappStart(web3) {
         }
     }
     updateBidHistory();
+
+    function readFile (evt) {
+        var files = evt.target.files;
+        var file = files[0];
+        var reader = new FileReader();
+        reader.onload = function(event) {
+            var value = (event.target.result);
+            //alert(value);
+            var lines = value.match(/[^\r\n]+/g);
+            if(lines.length > 0){
+                lines.forEach(function (line) {
+                    var data = line.split(",")
+                    if(data.length > 0){
+                        var domain = data[0];
+                        addBidHistory(COOKIE_PROP_BID, {name: domain});
+                    }
+                });
+                updateBidHistory();
+            }
+
+        };
+        reader.readAsText(file)
+    }
+
+    document.getElementById('upload').addEventListener('change', readFile, false);
 
     return onDomain;
 };
