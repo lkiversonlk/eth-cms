@@ -10,10 +10,28 @@
         <h1>{{category.name}}</h1>
     </div>
 
+    <!--
+    <div class="col-lg-6">
+    <div class="input-group">
+      <span class="input-group-btn">
+        <button class="btn btn-default" type="button">Go!</button>
+      </span>
+      <input type="text" class="form-control" placeholder="Search for...">
+    </div>
+</div>
+<div class="col-lg-6">
+    <div class="input-group">
+        <input type="text" class="form-control" placeholder="Search for...">
+        <span class="input-group-btn">
+        <button class="btn btn-default" type="button">Go!</button>
+      </span>
+    </div>
+</div>
+ -->
     <div >
         <form class="form" >
-            <div class="form-row">
-                <div class="col">
+            <div class="row">
+                <div class="col-lg-6">
                     <label for="coinType">
                         选择币种
                     </label>
@@ -23,9 +41,9 @@
                         <option>ltc</option>
                     </select>
                 </div>
-                <div class="col">
+                <div class="col-lg-6">
                     <label for="price">
-                        输入coinbase当前售价
+                        输入coinbase当前售价(
                     </label>
                     <input type="number" class="form-control" id="price">
                 </div>
@@ -36,19 +54,24 @@
                 </label>
                 <input type="number" class="form-control" id="count">
             </div>
-            <div class="form-row">
-                <div class="col">
+            <div class="row">
+                <div class="col-lg-6">
                     <label for="final">
                         最终搬回来价格
                     </label>
                     <input type="number" class="form-control" id="final">
                 </div>
-                <div class="col">
-                    <button type="button" class="btn btn-default form-control">计算</button>
+                <div class="col-lg-6">
+                    <button type="button" class="btn btn-success form-control" id="calculate">预估</button>
                 </div>
             </div>
         </form>
     </div>
+    <script type="application/javascript">
+        $("#calculate").click(function () {
+
+        });
+    </script>
     <div class="content">
         {{{content}}}
     </div>
