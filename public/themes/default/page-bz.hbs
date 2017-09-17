@@ -32,9 +32,9 @@
         <form class="form" >
             <div class="row">
                 <div class="col-lg-6">
-                    <label for="coinType">
+                    <span class="input-group-btn">
                         选择币种
-                    </label>
+                    </span>
                     <select class="form-control" id="coinType">
                         <option>btc</option>
                         <option>eth</option>
@@ -69,6 +69,8 @@
     </div>
     <script type="application/javascript">
         $("#calculate").click(function () {
+            var price = $("#price").val();
+            var count = $("#count").val();
 
         });
     </script>
