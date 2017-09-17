@@ -43,16 +43,6 @@
                 <div class="col-lg-6">
                     <div class="input-group">
                         <span class="input-group-btn">
-                            <button class="btn btn-default" type="button">coinbase当前售价（美元）</button>
-                        </span>
-                        <input type="number" class="form-control" id="price">
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-lg-6">
-                    <div class="input-group">
-                        <span class="input-group-btn">
                             <button class="btn btn-default" type="button">一次搬个数</button>
                         </span>
                         <input type="number" class="form-control" id="count">
@@ -87,7 +77,7 @@
             var coins = ["BTC", "ETH", "LTC"];
             if(Array.isArray(data)){
                 data.forEach(function (price, i) {
-                    $('#coinType').append($('', {value:price, text:coins[i]}));
+                    $('#coinType').append($('<option>', {value:price, text:coins[i]}));
                 })
             } else {
                 $("#final").val("coinbase价格获取失败");
@@ -95,7 +85,7 @@
         });
 
         $("#calculate").click(function () {
-            var price = $("#price").val();
+            var price = $("#coinType").val();
             var count = $("#count").val();
             if(price <= 0 || count <= 0 ){
                 $("#final").val("输入错误");
