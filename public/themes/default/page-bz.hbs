@@ -49,6 +49,7 @@
                     </div>
                 </div>
             </div>
+            <br/>
             <div class="row">
                 <div class="col-lg-6">
                     <div class="input-group">
@@ -66,6 +67,7 @@
                     </div>
                 </div>
             </div>
+            <br/>
         </form>
     </div>
     <script type="application/javascript">
@@ -91,7 +93,7 @@
                 $("#final").val("输入错误");
                 return
             }
-            var finalDollar = price * count * 0.985 * 0.98;
+            var finalDollar = price * count * 0.98;
             if(finalDollar > 5000){
                 $("#final").val("总额超过5000美元");
                 return
