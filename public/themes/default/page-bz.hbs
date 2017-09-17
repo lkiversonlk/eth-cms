@@ -1,0 +1,47 @@
+<div class="container">
+    <ol class="breadcrumb">
+        <li><a href="/">首页</a></li>
+        {{#foreach category.breadcrumb}}
+            <li><a href="{{path}}">{{name}}</a></li>
+        {{/foreach}}
+        <li class="active">{{text category.name words="15"}}</li>
+    </ol>
+    <div class="page-header text-center">
+        <h1>{{category.name}}</h1>
+    </div>
+
+    <div >
+        <form class="form" >
+            <div class="form-group">
+                <label for="coinType">
+                    选择币种
+                </label>
+                <select class="form-control" id="coinType">
+                    <option>btc</option>
+                    <option>eth</option>
+                    <option>ltc</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="price">
+                    输入coinbase当前售价
+                </label>
+                <input type="number" class="form-control" id="price">
+            </div>
+
+            <div class="form-group">
+                <label for="final">
+                    最终搬回来价格
+                </label>
+                <input type="number" class="form-control" id="final">
+            </div>
+
+            <div class="form-group">
+                <button type="button" class="btn btn-default form-control">计算</button>
+            </div>
+        </form>
+    </div>
+    <div class="content">
+        {{{content}}}
+    </div>
+</div>

@@ -293,6 +293,9 @@ function ensDappStart(web3) {
                                 "二价:" + price);
                             addBidHistory(COOKIE_PROP_BID, {name: domain, price: price});
                             updateBidHistory();
+
+                            //展示域名处理窗口
+
                         } else if(owner_addr == '0x0000000000000000000000000000000000000000'){
                             //not determined yet
                             if(entry.deed){
