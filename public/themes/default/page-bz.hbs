@@ -53,11 +53,13 @@
                 </div>
             </div>
             <div class="row">
-                <div class="input-group">
-                    <span class="input-group-btn">
-                        <button class="btn btn-default" type="button">一次搬个数</button>
-                    </span>
-                    <input type="number" class="form-control" id="count">
+                <div class="col-lg-6">
+                    <div class="input-group">
+                        <span class="input-group-btn">
+                            <button class="btn btn-default" type="button">一次搬个数</button>
+                        </span>
+                        <input type="number" class="form-control" id="count">
+                    </div>
                 </div>
             </div>
             <div class="row">
@@ -66,7 +68,7 @@
                         <span class="input-group-btn">
                             <button class="btn btn-default" type="button">最终搬回价格</button>
                         </span>
-                        <input type="number" class="form-control" id="final">
+                        <input type="text" class="form-control" id="final">
                     </div>
                 </div>
                 <div class="col-lg-6">
@@ -82,10 +84,12 @@
             var price = $("#price").val();
             var count = $("#count").val();
             if(price <= 0 || count <= 0 ){
+                $("#final").val("输入错误");
                 return
             }
             var finalDollar = price * count * 0.985 * 0.98;
             if(finalDollar > 5000){
+                $("#final").val("总额超过5000美元");
                 return
             } else {
                 var finalRMB = finalDollar * 6.47 - 150;
