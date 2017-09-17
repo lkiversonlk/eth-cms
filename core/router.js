@@ -192,7 +192,11 @@ module.exports = {
             all : "eth_price"
         }
     },
-
+    '/price' : {
+        "/coinbase" : {
+            all : "coinbase"
+        }
+    },
     '/domain': {
         post : "domain.insert",
 

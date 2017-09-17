@@ -37,9 +37,6 @@
                             <button class="btn btn-default" type="button">选择币种</button>
                         </span>
                         <select class="form-control" id="coinType">
-                            <option>btc</option>
-                            <option>eth</option>
-                            <option>ltc</option>
                         </select>
                     </div>
                 </div>
@@ -82,6 +79,25 @@
         </form>
     </div>
     <script type="application/javascript">
+        $.get("/price/coinbase", function (err, response, body) {
+            if(err) {
+                $("#final").val("coinbase价格获取失败");
+            } else {
+                if(typeof body == "string") {
+                    body = JSON.parse(body)
+                }
+
+                var coins = ["BTC", "ETH", "LTC"];
+                if(Array.isArray(body)){
+                    body.forEach(function (price, i) {
+                        $('#coinType').append($('', {value:price, text:coins[i]}));
+                    })
+                } else {
+                    $("#final").val("coinbase价格获取失败");
+                }
+            }
+        });
+
         $("#calculate").click(function () {
             var price = $("#price").val();
             var count = $("#count").val();
