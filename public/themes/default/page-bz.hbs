@@ -79,22 +79,18 @@
         </form>
     </div>
     <script type="application/javascript">
-        $.get("/price/coinbase", function (err, response, body) {
-            if(err) {
-                $("#final").val("coinbase价格获取失败");
-            } else {
-                if(typeof body == "string") {
-                    body = JSON.parse(body)
-                }
+        $.get("/price/coinbase", function (data) {
+            if(typeof data == "string") {
+                data = JSON.parse(data)
+            }
 
-                var coins = ["BTC", "ETH", "LTC"];
-                if(Array.isArray(body)){
-                    body.forEach(function (price, i) {
-                        $('#coinType').append($('', {value:price, text:coins[i]}));
-                    })
-                } else {
-                    $("#final").val("coinbase价格获取失败");
-                }
+            var coins = ["BTC", "ETH", "LTC"];
+            if(Array.isArray(data)){
+                data.forEach(function (price, i) {
+                    $('#coinType').append($('', {value:price, text:coins[i]}));
+                })
+            } else {
+                $("#final").val("coinbase价格获取失败");
             }
         });
 
