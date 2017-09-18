@@ -117,11 +117,13 @@
             var count = $("#count").val();
             if(price <= 0 || count <= 0 ){
                 $("#final").val("输入错误");
+                $("#success").html("coinbase现价:$"+ price)
                 return
             }
             var finalDollar = price * count * 0.98 * 0.98;
             if(finalDollar > 5000){
                 $("#final").val("总额超过5000美元");
+                $("#success").html("coinbase现价:$"+ price)
                 return
             } else {
                 var finalRMB = finalDollar * 6.47 - 150;
