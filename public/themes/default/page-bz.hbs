@@ -121,18 +121,13 @@
                 return
             }
             var finalDollar = price * count * 0.98 * 0.98;
-            if(finalDollar > 5000){
-                $("#final").val("总额超过5000美元");
-                $("#success").html("coinbase现价:$"+ price)
-                return
-            } else {
-                var finalRMB = finalDollar * 6.47 - 150;
-                var finalPrice = finalRMB/count;
-                $("#bz_price").val(finalPrice * 0.92);
-                $("#coin_price").val(finalPrice * 0.88);
-                $("#final").val(finalPrice);
-                $("#success").html("coinbase现价:$"+ price + ", 交易手续费2%,电汇手续费花旗2%,国内招行扣150元，结汇汇率6.47")
-            }
+            var rate = 6.55
+            var finalRMB = finalDollar * rate;
+            var finalPrice = finalRMB/count;
+            $("#bz_price").val(finalPrice * 0.93);
+            $("#coin_price").val(finalPrice * 0.90);
+            $("#final").val(finalPrice);
+            $("#success").html("coinbase现价:$"+ price + ", 交易手续费2%,电汇手续费花旗2%，结汇汇率 " + rate)
         });
     </script>
     <div class="content">
