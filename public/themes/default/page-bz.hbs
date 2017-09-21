@@ -117,11 +117,11 @@
             var count = $("#count").val();
             if(price <= 0 || count <= 0 ){
                 $("#final").val("输入错误");
-                $("#success").html("coinbase现价:$"+ price)
+                $("#success").html("coinbase现价:$"+ price);
                 return
             }
             var finalDollar = price * count * 0.98 * 0.98;
-            var rate = 6.55
+            var rate = 6.55;
             var finalRMB = finalDollar * rate;
             var finalPrice = finalRMB/count;
             $("#bz_price").val(finalPrice * 0.93);
