@@ -45,7 +45,18 @@
                         <span class="input-group-btn">
                             <button class="btn btn-default" type="button">一次搬个数</button>
                         </span>
-                        <input type="number" class="form-control" placeholder="汇兑有固定手续费，建议一次搬砖数量尽可能多" id="count">
+                        <input type="number" class="form-control" placeholder="数量越多搬价越高" id="count">
+                    </div>
+                </div>
+            </div>
+            <br/>
+
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="input-group">
+                        <button type="button" class="btn-success form-control" id="calculate">
+                            预估
+                        </button>
                     </div>
                 </div>
             </div>
@@ -59,15 +70,30 @@
                         <input type="text" class="form-control" id="final">
                     </div>
                 </div>
+            </div>
+            <br/>
+            <div class="row">
                 <div class="col-lg-6">
                     <div class="input-group">
-                        <button type="button" class="btn btn-success form-control" id="calculate">
-                            预估
-                        </button>
+                        <span class="input-group-btn">
+                            <button class="btn btn-default" type="button">全程搬砖结算价</button>
+                        </span>
+                        <input type="text" class="form-control" id="bz_price">
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="input-group">
+                        <span class="input-group-btn">
+                            <button class="btn btn-default" type="button">直接收币价</button>
+                        </span>
+                        <input type="text" class="form-control" id="coin_price">
                     </div>
                 </div>
             </div>
-            <br/>
+            <div class="row">
+                <div id="success" class="alert alert-success">
+                </div>
+            </div>
         </form>
     </div>
     <script type="application/javascript">
@@ -91,17 +117,17 @@
             var count = $("#count").val();
             if(price <= 0 || count <= 0 ){
                 $("#final").val("输入错误");
+                $("#success").html("coinbase现价:$"+ price);
                 return
             }
-            var finalDollar = price * count * 0.98;
-            if(finalDollar > 5000){
-                $("#final").val("总额超过5000美元");
-                return
-            } else {
-                var finalRMB = finalDollar * 6.52;
-                var finalPrice = finalRMB/count;
-                $("#final").val(finalPrice);
-            }
+            var finalDollar = price * count * 0.98 - 35;
+            var rate = 6.55;
+            var finalRMB = finalDollar * rate;
+            var finalPrice = finalRMB/count;
+            $("#bz_price").val(finalPrice * 0.93);
+            $("#coin_price").val(finalPrice * 0.90);
+            $("#final").val(finalPrice);
+            $("#success").html("coinbase现价:$"+ price + ", 交易手续费2%,电汇手续费花旗$35，结汇汇率 " + rate)
         });
     </script>
     <div class="content">
