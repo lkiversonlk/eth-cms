@@ -67,6 +67,7 @@
                 </div>
             </div>
             <br/>
+            <!--
             <div class="row">
                 <div class="col-lg-6">
                     <div class="input-group">
@@ -78,11 +79,12 @@
                 </div>
             </div>
             <br/>
+            -->
             <div class="row">
                 <div class="col-lg-6">
                     <div class="input-group">
                         <span class="input-group-btn">
-                            <button class="btn btn-default" type="button">全程搬砖结算价</button>
+                            <button class="btn btn-default" type="button">全程搬砖价</button>
                         </span>
                         <input type="text" class="form-control" id="bz_price">
                     </div>
@@ -96,6 +98,7 @@
                     </div>
                 </div>
             </div>
+            <br/>
             <div class="row">
                 <div id="success" class="alert alert-success">
                 </div>
@@ -126,14 +129,14 @@
                 $("#success").html("coinbase现价:$"+ price);
                 return
             }
-            var finalDollar = price * count * 0.98 * 0.98;
+            var finalDollar = price * count * 0.98 - 35;
             var rate = 6.55;
             var finalRMB = finalDollar * rate;
             var finalPrice = finalRMB/count;
             $("#bz_price").val(finalPrice * 0.93);
             $("#coin_price").val(finalPrice * 0.90);
             $("#final").val(finalPrice);
-            $("#success").html("coinbase现价:$"+ price + ", 交易手续费2%,电汇手续费花旗2%，结汇汇率 " + rate)
+            $("#success").html("coinbase现价:$"+ price + ", 交易手续费2%,电汇手续费花旗$35，结汇汇率 " + rate)
         });
     </script>
     <div class="content">
