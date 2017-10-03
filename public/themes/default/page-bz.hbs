@@ -31,6 +31,12 @@
     <div >
         <form class="form" >
             <div class="row">
+                <div class="alert alert-info">
+                    价格，汇率都会实时变动，请每次以最新查询结果为准
+                </div>
+            </div>
+            <br/>
+            <div class="row">
                 <div class="col-lg-6">
                     <div class="input-group">
                         <span class="input-group-btn">
@@ -130,7 +136,7 @@
             $("#bz_price").val(finalPrice * 0.945);
             $("#coin_price").val(finalPrice * 0.91);
             $("#final").val(finalPrice);
-            $("#success").html("coinbase现价:$"+ price + ", 交易手续费2%,电汇手续费花旗$35，结汇汇率 " + rate)
+            $("#success").html("coinbase现价:$"+ price + ", 交易手续费0.3%,电汇手续费花旗$35，结汇汇率 " + rate)
         });
     </script>
     <div class="content">
