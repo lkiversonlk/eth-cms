@@ -129,12 +129,12 @@
                 $("#success").html("coinbase现价:$"+ price);
                 return
             }
-            var finalDollar = price * count * 0.98 - 35;
+            var finalDollar = price * count * 0.997 - 35;
             var rate = 6.66;
             var finalRMB = finalDollar * rate;
             var finalPrice = finalRMB/count;
-            $("#bz_price").val(finalPrice * 0.945);
-            $("#coin_price").val(finalPrice * 0.91);
+            $("#bz_price").val(finalPrice * 0.96);
+            $("#coin_price").val(finalPrice * 0.93);
             $("#final").val(finalPrice);
             $("#success").html("coinbase现价:$"+ price + ", 交易手续费0.3%,电汇手续费花旗$35，结汇汇率 " + rate)
         });
