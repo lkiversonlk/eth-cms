@@ -295,7 +295,7 @@ function ensDappStart(web3) {
                 } else {
 
                 }
-            })*/
+            })
 
         } else {
             if(data.owner == '0x0000000000000000000000000000000000000000'){
