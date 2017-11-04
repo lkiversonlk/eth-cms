@@ -75,7 +75,7 @@ module.exports = function (req, res) {
 
         if(ret.resolver != '0x0000000000000000000000000000000000000000') {
             //
-            if(ret.resolverAddress() == publicResolver.address){
+            if(ret.resolver == publicResolver.address){
                 ret.status = 1;
                 ret.resolveTo = publicResolver.addr(dHash);
             } else {
