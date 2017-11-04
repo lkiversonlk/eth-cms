@@ -64,7 +64,7 @@ module.exports = function (req, res) {
             resolver: "0x0000000000000000000000000000000000000000"
         };
         //resolver
-        ret.resolver = ens.resolver(dHash);
+        ret.resolver = ens.ens.resolver(dHash);
 
         if(ret.resolver != '0x0000000000000000000000000000000000000000') {
             //
