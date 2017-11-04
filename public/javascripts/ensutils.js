@@ -23,9 +23,6 @@ function ensDappStart(web3) {
         console.log("ethRegistrar initialed");
     });
 
-
-    initEthRegistrar();
-
     function onDomain(domain, data) {
         console.log("start registrar for domain " + domain);
 
