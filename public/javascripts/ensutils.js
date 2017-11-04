@@ -283,8 +283,8 @@ function ensDappStart(web3) {
             updateBidHistory();
 
             //展示域名处理窗口
-            /*
             $("#handle").show();
+
             ens.resolver(domain + ".eth").resolverAddress(function (err, addr) {
                 if(err == ENS.NameNotFound){
                     $("#info").html("您还没有设置该域名的resolver");
