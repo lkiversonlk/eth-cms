@@ -28803,8 +28803,6 @@ function ensDappStart(web3) {
             updateBidHistory();
 
             //展示域名处理窗口
-
-            showResolve(data.resolve);
         } else {
             if(data.owner == '0x0000000000000000000000000000000000000000'){
                 if(entry.deed.owner == OWNER){
@@ -28824,6 +28822,7 @@ function ensDappStart(web3) {
                     "二价:" + data.sec);
             }
         }
+        showResolve(data.resolve);
     }
 
     function showResolve(resolve){
