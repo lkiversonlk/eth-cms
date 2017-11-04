@@ -357,13 +357,17 @@ function ensDappStart(web3) {
 
             ens.setResolver(
                 full_domain,
-                PublicResolverAddr,
+                resolverAddr,
                 {
                     from: account,
                     gas: 470000
                 },
                 function (err, result) {
-
+                    if(err){
+                        $("#info").html("设置解析器失败: " + e.toString());
+                    } else {
+                        $("#info").html("更新解析器成功，请稍后刷新");
+                    }
                 });
         });
     };
@@ -374,7 +378,7 @@ function ensDappStart(web3) {
             $("#info").html("请确保域名正确，长度必须大于7");
             return
         }
-        var addr = $("#set_resolve").val().trim();
+        var addr = $("#update_resolveTo").val().trim();
 
         if(!web3.isAddress(addr)){
             $("#info").html(addr + " 不是正确的eth地址");
@@ -400,12 +404,7 @@ function ensDappStart(web3) {
 
             var account = a[0];
 
-            var publicResolver = getResolver("resolver.eth");
-
-            var node = namehash.hash(full_domain);
-            publicResolver.setAddr(node, addr, function (e, what) {
-                //TODO:
-            })
+            var resolver = ens.resolver(full_domain);
         });
     }
 
