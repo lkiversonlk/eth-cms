@@ -28821,37 +28821,23 @@ function ensDappStart(web3) {
             })*/
 
         } else {
-            ethRegistrar.getEntry(domain, function (err, entry) {
-                if(e) {
-                    $("#error").html("错误：" + e.toString())
+            if(data.owner == '0x0000000000000000000000000000000000000000'){
+                if(entry.deed.owner == OWNER){
+                    $("#info").html("你已经抢到域名" + domain + ".eth了！" +
+                        "出价:" + web3.fromWei(entry.deed.highestBid, "ether") +
+                        "二价:" + web3.fromWei(entry.deed.value)+
+                        "现在结算竞拍，拿回剩余的ether吧！")
+                    $("#finalize").show();
                 } else {
-                    if(data.owner == '0x0000000000000000000000000000000000000000'){
-                        //not determined yet
-                        if(entry.deed){
-                            if(entry.deed.owner == OWNER){
-                                $("#info").html("你已经抢到域名" + domain + ".eth了！" +
-                                    "出价:" + web3.fromWei(entry.deed.highestBid, "ether") +
-                                    "二价:" + web3.fromWei(entry.deed.value)+
-                                    "现在结算竞拍，拿回剩余的ether吧！")
-                                $("#finalize").show();
-                            } else {
-                                if(entry.deed){
-                                    $("#info").html("域名" + domain + ".eth被" + entry.deed.owner + "抢到了，等待他结算中" +
-                                        "出价:" + web3.fromWei(entry.deed.highestBid, "ether") +
-                                        "二价:" + web3.fromWei(entry.deed.value));
-                                }
-
-                            }
-                        }
-                    } else {
-                        if(entry.deed){
-                            $("#info").html("域名" + domain + ".eth属于" + entry.deed.owner +
-                                "出价:" + web3.fromWei(entry.deed.highestBid, "ether") +
-                                "二价:" + web3.fromWei(entry.deed.value));
-                        }
-                    }
+                    $("#info").html("域名" + domain + ".eth被" + entry.deed.owner + "抢到了，等待他结算中" +
+                        "出价:" + web3.fromWei(entry.deed.highestBid, "ether") +
+                        "二价:" + web3.fromWei(entry.deed.value));
                 }
-            });
+            } else {
+                $("#info").html("域名" + domain + ".eth属于" + entry.deed.owner +
+                    "出价:" + web3.fromWei(entry.deed.highestBid, "ether") +
+                    "二价:" + web3.fromWei(entry.deed.value));
+            }
         }
     }
 
