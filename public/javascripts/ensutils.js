@@ -8,20 +8,21 @@ function ensDappStart(web3) {
     $("#bidbtn_v").click(validateBid);
     $("#bidbtn_reveal").click(revealBid);
     $("#finalize_btn").click(finalizeDomain);
+    $("#set_public_resolver").click(setPublicResolver);
+    $("#set_resolving").click(setPublicResolverResolving);
+
     var ethRegistrar = null;
     var ens = null;
-    function initEthRegistrar(){
-        return new Promise((resolve, reject) => {
-            ens = new ENS(web3);
-            ethRegistrar = new Registrar(web3, ens, "eth", 7, (err, result) => {
-                if(err){
-                    return reject(err);
-                }
-                console.log("ethRegistrar initialed");
-                resolve();
-            });
-        });
-    }
+    var publicResolverAddress = null;
+
+    ens = new ENS(web3);
+    ethRegistrar = new Registrar(web3, ens, "eth", 7, function(err, result){
+        if(err){
+            return reject(err);
+        }
+        console.log("ethRegistrar initialed");
+    });
+
 
     initEthRegistrar();
 
@@ -279,11 +280,11 @@ function ensDappStart(web3) {
     function loadOwnedDomain(domain){
         ens.owner(domain + ".eth", function (e, owner_addr) {
             if(e) {
-
+                $("#error").html("错误：" + e.toString())
             } else {
                 ethRegistrar.getEntry(domain, function (err, entry) {
                     if(e) {
-
+                        $("#error").html("错误：" + e.toString())
                     } else {
                         if(OWNER == owner_addr) {
                             $("#info").html("域名" + domain + ".eth现在属于你，恭喜！");
@@ -295,6 +296,20 @@ function ensDappStart(web3) {
                             updateBidHistory();
 
                             //展示域名处理窗口
+                            /*
+                            $("#handle").show();
+                            ens.resolver(domain + ".eth").resolverAddress(function (err, addr) {
+                                if(err == ENS.NameNotFound){
+                                    $("#info").html("您还没有设置该域名的resolver");
+                                    $("#set_public_resolver_box").show();
+                                    $("#set_resolving_box").hide();
+                                } else if (err != nil){
+
+                                } else {
+
+                                }
+                            })*/
+
 
                         } else if(owner_addr == '0x0000000000000000000000000000000000000000'){
                             //not determined yet
@@ -325,18 +340,92 @@ function ensDappStart(web3) {
                 });
             }
         });
+    }
 
-        ethRegistrar.getEntry(domain, function(err, e){
-            if(err){
+    function getResolver(domain) {
+        return ens.resolver(domain + ".eth");
+    }
 
+    function setPublicResolver() {
+        var domain = $("#domain").val().trim();
+
+        if(domain.length < 7){
+            $("#info").html("请确保域名正确");
+            return
+        }
+
+        web3.eth.getAccounts(function(e, a) {
+            var text = "";
+            if (e) {
+                text = "获取账户信息失败！" + e.toString();
+
+            } else if (a.length == 0) {
+                text = "获取账户信息失败！" + "没有账户";
             } else {
-                var owner = "未知";
-
-                if(e.owner){
-                    console.log("hello");
-                }
+                text = "没有以太币账户";
             }
-        })
+            $("#info").html(text);
+
+            if (e || a.length == 0) {
+                return;
+            }
+
+            var account = a[0];
+
+            var publicResolver = getResolver("resolver.eth");
+            var full_domain = domain + ".eth";
+
+            ens.setResolver(
+                full_domain,
+                publicResolver.resolverAddress(),
+                {
+                    from: account
+                },
+                function (err, result) {
+
+                });
+        });
+    };
+    
+    function setPublicResolverResolving() {
+        var domain = $("#domain").val().trim();
+        if(domain.length < 7){
+            $("#info").html("请确保域名正确，长度必须大于7");
+            return
+        }
+        var addr = $("#set_resolve").val().trim();
+
+        if(!web3.isAddress(addr)){
+            $("#info").html(addr + " 不是正确的eth地址");
+            return
+        }
+        var full_domain = domain + ".eth";
+
+        web3.eth.getAccounts(function(e, a) {
+            var text = "";
+            if (e) {
+                text = "获取账户信息失败！" + e.toString();
+
+            } else if (a.length == 0) {
+                text = "获取账户信息失败！" + "没有账户";
+            } else {
+                text = "没有以太币账户";
+            }
+            $("#info").html(text);
+
+            if (e || a.length == 0) {
+                return;
+            }
+
+            var account = a[0];
+
+            var publicResolver = getResolver("resolver.eth");
+
+            var node = namehash.hash(full_domain);
+            publicResolver.setAddr(node, addr, function (e, what) {
+                //TODO:
+            })
+        });
     }
 
     function finalizeDomain(){

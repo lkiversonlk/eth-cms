@@ -174,7 +174,25 @@
                 </div>
 
                 <div id="handle" style="margin-top: 15px">
+                    <div id="set_public_resolver_box">
+                        <button id="set_public_resolver" class="btn btn-success input-group form-control">
+                            设置为public resolver (推荐)
+                        </button>
+                    </div>
 
+                    <div id="set_resolving_box">
+                        <div class="input-group">
+                            <!-- public resolver -->
+                            <input id="set_resolve" type="text" class="form-control" placeholder="设置解析地址" aria-describedby="basic-addon2">
+                            <span class="input-group-addon">
+                           输入希望域名解析到的eth地址
+                        </span>
+                        </div>
+                        <br/>
+                        <button id="set_resolving" class="btn btn-success input-group form-control">
+                            设置
+                        </button>
+                    </div>
                 </div>
             </div>
 
@@ -209,36 +227,34 @@
         </div>
     </div>
 
+    <script type="application/javascript">
+         $("#dapps").hide();
+    </script>
     <script type="application/javascript" src="/javascripts/web3.js"></script>
     <script type="application/javascript" src="/javascripts/dist.js"></script>
     <script type="application/javascript" src="/javascripts/cookie.js"></script>
     <script type="application/javascript">
-        $("#dapps").hide();
-        $("#info").hide();
-
         if(typeof web3 !== 'undefined') {
             // If there's a web3 library loaded, then make your own web3
-            var web3 = new Web3(web3.currentProvider);
             $("#info").html("ens域名注册Dapp启动中...");
-            $("#info").show();
-            $("#dapps").show();
-            var clickHook = ensDappStart(web3);
+            var web3 = new Web3(web3.currentProvider);
             web3.eth.getAccounts(function(e, a){
                 var text = "";
                 if(e){
                     text = "获取账户信息失败！" + e.toString();
-
                 } else if(a.length == 0){
                     text = "ens域名注册Dapp启动成功, 但没有eth账户连接";
                 } else {
                     text = "ens域名注册Dapp启动成功，连接账户" + a[0];
                     OWNER = a[0];
+                    var clickHook = ensDappStart(web3);
+                    $("#dapps").show();
                 }
-
                 setTimeout(function () {
                     $("#info").html(text);
                 }, 2000);
             });
+            //启动dapp
         } else {
             // Alert the user he is not in a web3 compatible browser
             setTimeout(function () {
