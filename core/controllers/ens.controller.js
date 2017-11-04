@@ -57,14 +57,6 @@ module.exports = function (req, res) {
             }
         }
 
-        //load deed
-        ret.deed = address;
-        /*
-        if(address != '0x0000000000000000000000000000000000000000'){
-            var deed = ens.deedContract.at(address);
-            ret.deed =
-        }*/
-
         ret.resolve = {
             status: 0,
             resolveTo: "0x0000000000000000000000000000000000000000",
@@ -82,6 +74,21 @@ module.exports = function (req, res) {
                 ret.resolve.status = 2;
                 ret.resolve.resolveTo = ens.resolveContract.at(ret.resolve.resolver).addr(namehash);
             }
+        }
+
+
+        if(address != '0x0000000000000000000000000000000000000000'){
+            //load deed
+
+            var deed = ens.deedContract.at(address);
+            ret.deed = {
+                owner: deed.owner(),
+                address : address
+            }
+        } else {
+            ret.deed = {
+                address: address
+            };
         }
         return ret;
     }

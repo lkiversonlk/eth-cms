@@ -28574,7 +28574,7 @@ function ensDappStart(web3) {
                 loadEntryInfo(domain);
                 break;
             case 2:
-                loadOwnedDomain(domain);
+                loadOwnedDomain(domain, data);
                 break;
             default:
                 $("#info").html(domain + ".eth 无法竞拍");
@@ -28797,69 +28797,62 @@ function ensDappStart(web3) {
         })
     }
 
-    function loadOwnedDomain(domain){
-        ens.owner(domain + ".eth", function (e, owner_addr) {
-            if(e) {
-                $("#error").html("错误：" + e.toString())
-            } else {
-                ethRegistrar.getEntry(domain, function (err, entry) {
-                    if(e) {
-                        $("#error").html("错误：" + e.toString())
-                    } else {
-                        if(OWNER == owner_addr) {
-                            $("#info").html("域名" + domain + ".eth现在属于你，恭喜！");
-                            var price = web3.fromWei(entry.value);
-                            $("#info").html("域名" + domain + ".eth属于你，恭喜！" +
-                                "出价:" + web3.fromWei(entry.highestBid, "ether") +
-                                "二价:" + price);
-                            addBidHistory(COOKIE_PROP_BID, {name: domain, price: price});
-                            updateBidHistory();
+    function loadOwnedDomain(domain, data){
+        if(data.owner == OWNER){
+            $("#info").html("域名" + domain + ".eth属于你，恭喜！" +
+                "出价:" + data.high +
+                "二价:" + data.sec);
+            addBidHistory(COOKIE_PROP_BID, {name: domain, price: data.high});
+            updateBidHistory();
 
-                            //展示域名处理窗口
-                            /*
-                            $("#handle").show();
-                            ens.resolver(domain + ".eth").resolverAddress(function (err, addr) {
-                                if(err == ENS.NameNotFound){
-                                    $("#info").html("您还没有设置该域名的resolver");
-                                    $("#set_public_resolver_box").show();
-                                    $("#set_resolving_box").hide();
-                                } else if (err != nil){
+            //展示域名处理窗口
+            /*
+            $("#handle").show();
+            ens.resolver(domain + ".eth").resolverAddress(function (err, addr) {
+                if(err == ENS.NameNotFound){
+                    $("#info").html("您还没有设置该域名的resolver");
+                    $("#set_public_resolver_box").show();
+                    $("#set_resolving_box").hide();
+                } else if (err != nil){
 
-                                } else {
+                } else {
 
-                                }
-                            })*/
+                }
+            })*/
 
-
-                        } else if(owner_addr == '0x0000000000000000000000000000000000000000'){
-                            //not determined yet
-                            if(entry.deed){
-                                if(entry.deed.owner == OWNER){
-                                    $("#info").html("你已经抢到域名" + domain + ".eth了！" +
-                                        "出价:" + web3.fromWei(entry.deed.highestBid, "ether") +
-                                        "二价:" + web3.fromWei(entry.deed.value)+
-                                        "现在结算竞拍，拿回剩余的ether吧！")
-                                    $("#finalize").show();
-                                } else {
-                                    if(entry.deed){
-                                        $("#info").html("域名" + domain + ".eth被" + entry.deed.owner + "抢到了，等待他结算中" +
-                                            "出价:" + web3.fromWei(entry.deed.highestBid, "ether") +
-                                            "二价:" + web3.fromWei(entry.deed.value));
-                                    }
-
-                                }
-                            }
-                        } else {
-                            if(entry.deed){
-                                $("#info").html("域名" + domain + ".eth属于" + entry.deed.owner +
+        } else {
+            ethRegistrar.getEntry(domain, function (err, entry) {
+                if(e) {
+                    $("#error").html("错误：" + e.toString())
+                } else {
+                    if(data.owner == '0x0000000000000000000000000000000000000000'){
+                        //not determined yet
+                        if(entry.deed){
+                            if(entry.deed.owner == OWNER){
+                                $("#info").html("你已经抢到域名" + domain + ".eth了！" +
                                     "出价:" + web3.fromWei(entry.deed.highestBid, "ether") +
-                                    "二价:" + web3.fromWei(entry.deed.value));
+                                    "二价:" + web3.fromWei(entry.deed.value)+
+                                    "现在结算竞拍，拿回剩余的ether吧！")
+                                $("#finalize").show();
+                            } else {
+                                if(entry.deed){
+                                    $("#info").html("域名" + domain + ".eth被" + entry.deed.owner + "抢到了，等待他结算中" +
+                                        "出价:" + web3.fromWei(entry.deed.highestBid, "ether") +
+                                        "二价:" + web3.fromWei(entry.deed.value));
+                                }
+
                             }
                         }
+                    } else {
+                        if(entry.deed){
+                            $("#info").html("域名" + domain + ".eth属于" + entry.deed.owner +
+                                "出价:" + web3.fromWei(entry.deed.highestBid, "ether") +
+                                "二价:" + web3.fromWei(entry.deed.value));
+                        }
                     }
-                });
-            }
-        });
+                }
+            });
+        }
     }
 
     function getResolver(domain) {
