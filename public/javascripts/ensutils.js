@@ -406,10 +406,14 @@ function ensDappStart(web3) {
 
             resolver.resolverAddress()
                 .then(function (address) {
-
+                    $("#info").html("解析器地址: " + address);
+                    return resolver.setAddr(addr, {from: account, gas:470000})
                 })
                 .catch(function(err){
                     $("#info").html("错误：" + err + " 请确定有设置正确的resolver");
+                })
+                .then(function () {
+                    $("#info").html("设置解析地址成功，请稍后刷新");
                 })
         });
     }
