@@ -37,7 +37,6 @@ module.exports = function (req, res) {
         var status_ch = status[status_int];
         var ret = {
             sti : status_int,
-            deed: address,
             date: date,
             stch : status_ch,
             high : highestBid,
@@ -45,17 +44,22 @@ module.exports = function (req, res) {
         };
 
         if(status_int == 2){
-            ret.owner = ens.ens.owner(ens.namehash(d+".eth"))
+            ret.owner = ens.ens.owner(ens.namehash(d+".eth"));
             if(ret.owner == '0x0000000000000000000000000000000000000000'){
                 ret = {
                     sti : status_int,
-                    deed: address,
                     date: date,
                     stch : "等待领取",
                     high : highestBid,
                     sec : secondBid
                 };
             }
+        }
+
+        //load deed
+        if(address != '0x0000000000000000000000000000000000000000'){
+            //var deed = ens.deedContract.at(address);
+            ret.deed = address
         }
 
         ret.resolve = {
