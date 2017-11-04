@@ -289,9 +289,9 @@ function ensDappStart(web3) {
             if(data.owner == '0x0000000000000000000000000000000000000000'){
                 if(entry.deed.owner == OWNER){
                     $("#info").html("你已经抢到域名" + domain + ".eth了！" +
-                        "出价:" + web3.fromWei(entry.deed.highestBid, "ether") +
-                        "二价:" + web3.fromWei(entry.deed.value)+
-                        "现在结算竞拍，拿回剩余的ether吧！")
+                        "出价:" + data.high + "  " +
+                        "二价:" + data.sec + "  " +
+                        "现在结算竞拍，拿回剩余的ether吧！");
                     $("#finalize").show();
                 } else {
                     $("#info").html("域名" + domain + ".eth被" + entry.deed.owner + "抢到了，等待他结算中" +
@@ -299,9 +299,9 @@ function ensDappStart(web3) {
                         "二价:" + web3.fromWei(entry.deed.value));
                 }
             } else {
-                $("#info").html("域名" + domain + ".eth属于" + entry.deed.owner +
-                    "出价:" + web3.fromWei(entry.deed.highestBid, "ether") +
-                    "二价:" + web3.fromWei(entry.deed.value));
+                $("#info").html("域名" + domain + ".eth属于" + data.owner +
+                    "出价:" + data.high + "  " +
+                    "二价:" + data.sec);
             }
         }
     }
