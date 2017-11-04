@@ -28803,8 +28803,8 @@ function ensDappStart(web3) {
             updateBidHistory();
 
             //展示域名处理窗口
-            $("#handle").show();
 
+            showResolve(data.resolve);
         } else {
             if(data.owner == '0x0000000000000000000000000000000000000000'){
                 if(entry.deed.owner == OWNER){
@@ -28824,6 +28824,14 @@ function ensDappStart(web3) {
                     "二价:" + web3.fromWei(entry.deed.value));
             }
         }
+    }
+
+    function showResolve(resolve){
+        $("#handle").show();
+
+        $("#resolver_category").text(resolve.statusStr);
+        $("#resolver").val(resolve.resolver);
+        $("#resolveTo").val(resolve.resolveTo);
     }
 
     function getResolver(domain) {

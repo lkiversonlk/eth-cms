@@ -75,7 +75,7 @@ module.exports = function (req, res) {
                 ret.resolve.resolveTo = ens.resolveContract.at(ret.resolve.resolver).addr(namehash);
             }
         }
-
+        ret.resolve.statusStr = resolveStatus[ret.resolve.status];
 
         if(address != '0x0000000000000000000000000000000000000000'){
             //load deed
