@@ -61,8 +61,8 @@ module.exports = function (req, res) {
         ret.deed = address;
         /*
         if(address != '0x0000000000000000000000000000000000000000'){
-            //var deed = ens.deedContract.at(address);
-
+            var deed = ens.deedContract.at(address);
+            ret.deed =
         }*/
 
         ret.resolve = {
@@ -71,16 +71,16 @@ module.exports = function (req, res) {
             resolver: "0x0000000000000000000000000000000000000000"
         };
         //resolver
-        ret.resolver = ens.ens.resolver(namehash);
+        ret.resolve.resolver = ens.ens.resolver(namehash);
 
-        if(ret.resolver != '0x0000000000000000000000000000000000000000') {
+        if(ret.resolve.resolver != '0x0000000000000000000000000000000000000000') {
             //
-            if(ret.resolver == publicResolver.address){
-                ret.status = 1;
-                ret.resolveTo = publicResolver.addr(dHash);
+            if(ret.resolve.resolver == publicResolver.address){
+                ret.resolve.status = 1;
+                ret.resolve.resolveTo = publicResolver.addr(dHash);
             } else {
-                ret.status = 2;
-                ret.resolveTo = ens.resolveContract.at(ret.resolver).addr(namehash);
+                ret.resolve.status = 2;
+                ret.resolve.resolveTo = ens.resolveContract.at(ret.resolver).addr(namehash);
             }
         }
         return ret;
