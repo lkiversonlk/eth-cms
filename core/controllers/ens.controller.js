@@ -57,7 +57,7 @@ module.exports = function (req, res) {
         }
 
         //load deed
-        ret.deed = address
+        ret.deed = address;
         /*
         if(address != '0x0000000000000000000000000000000000000000'){
             //var deed = ens.deedContract.at(address);
