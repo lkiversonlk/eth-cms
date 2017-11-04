@@ -28522,18 +28522,19 @@ var ENS = require("ethereum-ens");
 var Registrar = require("eth-registrar-ens");
 var async = require("async");
 
+const PublicResolverAddr = "0x1da022710df5002339274aadee8d58218e9d6ab5";
+
 function ensDappStart(web3) {
     $("#startbtn").click(startAuction);
     $("#bidbtn").click(setBid);
     $("#bidbtn_v").click(validateBid);
     $("#bidbtn_reveal").click(revealBid);
     $("#finalize_btn").click(finalizeDomain);
-    $("#set_public_resolver").click(setPublicResolver);
-    $("#set_resolving").click(setPublicResolverResolving);
+    $("#update_resolver_btn").click(setPublicResolver);
+    $("#update_resolveTo_btn").click(setPublicResolverResolving);
 
     var ethRegistrar = null;
     var ens = null;
-    var publicResolverAddress = null;
 
     ens = new ENS(web3);
     ethRegistrar = new Registrar(web3, ens, "eth", 7, function(err, result){
@@ -28834,6 +28835,7 @@ function ensDappStart(web3) {
     
     function showUpdateResolve() {
         $("#update_resolve").show();
+        $("#update_resolver").val(PublicResolverAddr);
     }
 
     function getResolver(domain) {
@@ -28842,9 +28844,15 @@ function ensDappStart(web3) {
 
     function setPublicResolver() {
         var domain = $("#domain").val().trim();
+        var resolverAddr = $("#update_resolver").val().trim();
 
         if(domain.length < 7){
             $("#info").html("请确保域名正确");
+            return
+        }
+
+        if(!web3.isAddress(resolverAddr)){
+            $("#info").html("请输入正确的解析器地址")
             return
         }
 
@@ -28865,15 +28873,14 @@ function ensDappStart(web3) {
             }
 
             var account = a[0];
-
-            var publicResolver = getResolver("resolver.eth");
             var full_domain = domain + ".eth";
 
             ens.setResolver(
                 full_domain,
-                publicResolver.resolverAddress(),
+                PublicResolverAddr,
                 {
-                    from: account
+                    from: account,
+                    gas: 470000
                 },
                 function (err, result) {
 
