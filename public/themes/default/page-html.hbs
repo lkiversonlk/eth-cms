@@ -247,7 +247,7 @@
                 } else {
                     text = "ens域名注册Dapp启动成功，连接账户" + a[0];
                     OWNER = a[0];
-                    var clickHook = ensDappStart(web3);
+                    clickHook = ensDappStart(web3);
                     $("#dapps").show();
                 }
                 setTimeout(function () {
@@ -309,7 +309,7 @@
                         }
                     });
 
-                    if(clickHook){
+                    if(typeof(clickHook) !== "undefined"){
                         clickHook(search, data);
                     }
                 });
