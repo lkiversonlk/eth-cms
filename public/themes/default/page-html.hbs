@@ -174,24 +174,19 @@
                 </div>
 
                 <div id="handle" style="margin-top: 15px">
-                    <div id="set_public_resolver_box">
-                        <button id="set_public_resolver" class="btn btn-success input-group form-control">
-                            设置为public resolver (推荐)
-                        </button>
+                    <div class="input-group">
+                        <span class="input-group-addon">
+                            当前Resolver地址
+                        </span>
+                        <input type="text" class="form-control" id="resolver">
                     </div>
 
-                    <div id="set_resolving_box">
-                        <div class="input-group">
-                            <!-- public resolver -->
-                            <input id="set_resolve" type="text" class="form-control" placeholder="设置解析地址" aria-describedby="basic-addon2">
-                            <span class="input-group-addon">
-                           输入希望域名解析到的eth地址
+                    <br/>
+                    <div class="input-group">
+                        <span class="input-group-addon">
+                            当前解析到
                         </span>
-                        </div>
-                        <br/>
-                        <button id="set_resolving" class="btn btn-success input-group form-control">
-                            设置
-                        </button>
+                        <input type="text" class="form-control" id="resolver">
                     </div>
                 </div>
             </div>
@@ -233,6 +228,7 @@
     <script type="application/javascript" src="/javascripts/web3.js"></script>
     <script type="application/javascript" src="/javascripts/dist.js"></script>
     <script type="application/javascript" src="/javascripts/cookie.js"></script>
+    <script type="application/javascript" src="/javascripts/handlebars.js"></script>
     <script type="application/javascript">
         if(typeof web3 !== 'undefined') {
             // If there's a web3 library loaded, then make your own web3
