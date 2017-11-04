@@ -28803,6 +28803,7 @@ function ensDappStart(web3) {
             updateBidHistory();
 
             //展示域名处理窗口
+            showUpdateResolve();
         } else {
             if(data.owner == '0x0000000000000000000000000000000000000000'){
                 if(entry.deed.owner == OWNER){
@@ -28827,10 +28828,12 @@ function ensDappStart(web3) {
 
     function showResolve(resolve){
         $("#handle").show();
-
-        $("#resolver_category").text(resolve.statusStr);
         $("#resolver").val(resolve.resolver);
         $("#resolveTo").val(resolve.resolveTo);
+    }
+    
+    function showUpdateResolve() {
+        $("#update_resolve").show();
     }
 
     function getResolver(domain) {

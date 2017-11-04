@@ -179,7 +179,7 @@
                     </div>
                     <div class="input-group">
                         <span class="input-group-addon">
-                            当前Resolver地址
+                            Resolver地址
                         </span>
                         <input type="text" class="form-control" id="resolver">
                     </div>
@@ -187,9 +187,32 @@
                     <br/>
                     <div class="input-group">
                         <span class="input-group-addon">
-                            当前解析到
+                            解析
                         </span>
                         <input type="text" class="form-control" id="resolveTo">
+                    </div>
+                </div>
+
+                <div id="update_resolve" style="margin-top: 15px;">
+                    <div class="input-group">
+                        <span class="input-group-addon">
+                            更新resolver地址
+                        </span>
+                        <input type="text" class="form-control" id="update_resolver">
+                        <span class="input-group-addon">
+                            确定
+                        </span>
+                    </div>
+
+                    <br/>
+                    <div class="input-group">
+                        <span class="input-group-addon">
+                            更新解析
+                        </span>
+                        <input type="text" class="form-control" id="update_resolveTo">
+                        <span class="input-group-addon">
+                            确定
+                        </span>
                     </div>
                 </div>
             </div>
@@ -272,7 +295,8 @@
             "bid_v",
             "reveal",
             "finalize",
-            "handle"
+            "handle",
+            "update_resolve"
         ];
         toHide.forEach(function (t) { $("#" + t).hide() });
 
