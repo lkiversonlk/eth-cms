@@ -28881,13 +28881,11 @@ function ensDappStart(web3) {
                 {
                     from: account,
                     gas: 470000
-                },
-                function (err, result) {
-                    if(err){
-                        $("#info").html("设置解析器失败: " + e.toString());
-                    } else {
-                        $("#info").html("更新解析器成功，请稍后刷新");
-                    }
+                })
+                .then(function(result){
+                    $("#info").html("更新解析器成功，请稍后刷新 " + result);
+                }).catch(function(err){
+                $("#info").html("设置解析器失败: " + err.toString());
                 });
         });
     };
@@ -28925,6 +28923,14 @@ function ensDappStart(web3) {
             var account = a[0];
 
             var resolver = ens.resolver(full_domain);
+
+            resolver.resolverAddress()
+                .then(function (address) {
+
+                })
+                .catch(function(err){
+                    $("#info").html("错误：" + err + " 请确定有设置正确的resolver");
+                })
         });
     }
 
