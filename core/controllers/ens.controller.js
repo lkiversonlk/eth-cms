@@ -70,7 +70,7 @@ module.exports = function (req, res) {
             resolver: "0x0000000000000000000000000000000000000000"
         };
         //resolver
-        ret.resolver = ens.ens.resolver(dHash);
+        ret.resolver = ens.ens.resolver(ens.namehash(d + ".eth"));
 
         if(ret.resolver != '0x0000000000000000000000000000000000000000') {
             //
