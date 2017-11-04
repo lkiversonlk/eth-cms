@@ -80,6 +80,7 @@ module.exports = function (req, res) {
                 ret.resolveTo = publicResolver.addr(dHash);
             } else {
                 ret.status = 2;
+                ret.resolveTo = ens.resolveContract.at(ret.resolver).addr(namehash);
             }
         }
         return ret;
