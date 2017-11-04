@@ -45,8 +45,8 @@ module.exports = function (req, res) {
         };
 
         if(status_int == 2){
-            var owner_addr = ens.ens.owner(ens.namehash(d+".eth"))
-            if(owner_addr == '0x0000000000000000000000000000000000000000'){
+            ret.owner = ens.ens.owner(ens.namehash(d+".eth"))
+            if(ret.owner == '0x0000000000000000000000000000000000000000'){
                 ret = {
                     sti : status_int,
                     deed: address,
