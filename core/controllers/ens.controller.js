@@ -28,6 +28,7 @@ module.exports = function (req, res) {
 
     function getDomainInfo(d) {
         var dHash = ethereum.sha3(d);
+        var namehash = ens.namehash(d + ".eth");
         var entry = ens.ethRegistrar.entries(dHash);
         var status_int = parseInt(entry[0]);
         var address = entry[1];
@@ -44,7 +45,7 @@ module.exports = function (req, res) {
         };
 
         if(status_int == 2){
-            ret.owner = ens.ens.owner(ens.namehash(d+".eth"));
+            ret.owner = ens.ens.owner(namehash);
             if(ret.owner == '0x0000000000000000000000000000000000000000'){
                 ret = {
                     sti : status_int,
@@ -70,7 +71,7 @@ module.exports = function (req, res) {
             resolver: "0x0000000000000000000000000000000000000000"
         };
         //resolver
-        ret.resolver = ens.ens.resolver(ens.namehash(d + ".eth"));
+        ret.resolver = ens.ens.resolver(namehash);
 
         if(ret.resolver != '0x0000000000000000000000000000000000000000') {
             //
