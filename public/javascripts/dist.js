@@ -28805,18 +28805,6 @@ function ensDappStart(web3) {
             //展示域名处理窗口
             $("#handle").show();
 
-            ens.resolver(domain + ".eth").resolverAddress(function (err, addr) {
-                if(err == ENS.NameNotFound){
-                    $("#info").html("您还没有设置该域名的resolver");
-                    $("#set_public_resolver_box").show();
-                    $("#set_resolving_box").hide();
-                } else if (err != nil){
-
-                } else {
-
-                }
-            })
-
         } else {
             if(data.owner == '0x0000000000000000000000000000000000000000'){
                 if(entry.deed.owner == OWNER){
