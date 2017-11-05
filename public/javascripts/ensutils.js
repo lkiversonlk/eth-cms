@@ -71,7 +71,7 @@ function ensDappStart(web3) {
             } else if(a.length == 0){
                 text = "获取账户信息失败！" + "没有账户";
             } else {
-                text = "没有以太币账户";
+                text = "操作中...";
             }
             $("#info").html(text);
 
@@ -112,7 +112,7 @@ function ensDappStart(web3) {
             } else if(a.length == 0){
                 text = "获取账户信息失败！" + "没有账户";
             } else {
-                text = "没有以太币账户";
+                text = "操作中...";
             }
             $("#info").html(text);
 
@@ -169,7 +169,7 @@ function ensDappStart(web3) {
             } else if(a.length == 0){
                 text = "获取账户信息失败！" + "没有账户";
             } else {
-                text = "没有以太币账户";
+                text = "操作中...";
             }
             $("#info").html(text);
 
@@ -219,7 +219,7 @@ function ensDappStart(web3) {
             } else if(a.length == 0){
                 text = "获取账户信息失败！" + "没有账户";
             } else {
-                text = "没有以太币账户";
+                text = "操作中...";
             }
             $("#info").html(text);
 
@@ -344,7 +344,7 @@ function ensDappStart(web3) {
             } else if (a.length == 0) {
                 text = "获取账户信息失败！" + "没有账户";
             } else {
-                text = "没有以太币账户";
+                text = "操作中...";
             }
             $("#info").html(text);
 
@@ -392,7 +392,7 @@ function ensDappStart(web3) {
             } else if (a.length == 0) {
                 text = "获取账户信息失败！" + "没有账户";
             } else {
-                text = "没有以太币账户";
+                text = "操作中...";
             }
             $("#info").html(text);
 
@@ -431,7 +431,7 @@ function ensDappStart(web3) {
             } else if(a.length == 0){
                 text = "获取账户信息失败！" + "没有账户";
             } else {
-                text = "没有以太币账户";
+                text = "操作中...";
             }
             $("#info").html(text);
 
