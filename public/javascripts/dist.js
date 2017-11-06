@@ -28569,7 +28569,7 @@ function ensDappStart(web3) {
             case 4:
                 $("#info").html(domain + ".eth 正在公示阶段，如果您有参与竞拍，请公示您的出价");
                 $("#reveal").show();
-                loadEntryInfo(domain);
+                loadEntryInfo(domain, data);
                 break;
             case 2:
                 loadOwnedDomain(domain, data);
@@ -28771,7 +28771,7 @@ function ensDappStart(web3) {
         });
     }
 
-    function loadEntryInfo(domain) {
+    function loadEntryInfo(domain, data) {
         $("#reveal_info").html("");
         ethRegistrar.getEntry(domain, function (err, e) {
             if(err){
