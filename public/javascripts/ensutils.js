@@ -262,7 +262,7 @@ function ensDappStart(web3) {
             owner = data.deed.owner;
         }
 
-        $("#reveal_info").html("最高价: " + data.deed.high + " 第二高价:" + data.deed.sec + " 当前胜者: " + owner);
+        $("#reveal_info").html("最高价: " + data.high + " 第二高价:" + data.sec + " 当前胜者: " + owner);
     }
 
     function loadOwnedDomain(domain, data){
