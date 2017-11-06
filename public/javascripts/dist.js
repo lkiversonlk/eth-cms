@@ -28807,7 +28807,7 @@ function ensDappStart(web3) {
             showUpdateResolve();
         } else {
             if(data.owner == '0x0000000000000000000000000000000000000000'){
-                if(entry.deed.owner == OWNER){
+                if(data.deed.owner == OWNER){
                     $("#info").html("你已经抢到域名" + domain + ".eth了！" +
                         "出价:" + data.high + "  " +
                         "二价:" + data.sec + "  " +
