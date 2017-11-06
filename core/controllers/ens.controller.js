@@ -47,13 +47,7 @@ module.exports = function (req, res) {
         if(status_int == 2){
             ret.owner = ens.ens.owner(namehash);
             if(ret.owner == '0x0000000000000000000000000000000000000000'){
-                ret = {
-                    sti : status_int,
-                    date: date,
-                    stch : "等待领取",
-                    high : highestBid,
-                    sec : secondBid
-                };
+                ret.stch = "等待领取";
             }
         }
 
