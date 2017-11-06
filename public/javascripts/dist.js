@@ -28814,9 +28814,9 @@ function ensDappStart(web3) {
                         "现在结算竞拍，拿回剩余的ether吧！");
                     $("#finalize").show();
                 } else {
-                    $("#info").html("域名" + domain + ".eth被" + entry.deed.owner + "抢到了，等待他结算中" +
-                        "出价:" + web3.fromWei(entry.deed.highestBid, "ether") +
-                        "二价:" + web3.fromWei(entry.deed.value));
+                    $("#info").html("域名" + domain + ".eth被" + data.deed.owner + "抢到了，等待他结算中" +
+                        "出价:" + web3.fromWei(data.high, "ether") +
+                        "二价:" + web3.fromWei(data.sec));
                 }
             } else {
                 $("#info").html("域名" + domain + ".eth属于" + data.owner +
