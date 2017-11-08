@@ -17,12 +17,20 @@ function ensDappStart(web3) {
     var ens = null;
 
     ens = new ENS(web3);
-    ethRegistrar = new Registrar(web3, ens, "eth", 7, function(err, result){
-        if(err){
-            return reject(err);
-        }
-        console.log("ethRegistrar initialed");
-    });
+
+    function initEthRegistrar(){
+        return new Promise(function(resolve, reject){
+            ethRegistrar = new Registrar(web3, ens, "eth", 7, function(err, result){
+                if(err){
+                    return reject(err);
+                }
+                console.log("ethRegistrar initialed");
+                resolve();
+            });
+        });
+    }
+
+    initEthRegistrar();
 
     function onDomain(domain, data) {
         console.log("start registrar for domain " + domain);
