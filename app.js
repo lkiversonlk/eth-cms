@@ -14,10 +14,11 @@ var DomainCache = require("./core/services/domain-cache");
 var app = express();
 
 var Web3 = require("web3");
-var ethereum = new Web3(new Web3.providers.HttpProvider("http://localhost:8545"));
+var ethereum = new Web3(new Web3.providers.HttpProvider("https://mainnet.infura.io/vAugb8H4cG1bOuFMZj3y"));
+
 var ens = require("./lib/ens.lib");
 app.set("ethereum", ethereum);
-app.set("ens", ens(ethereum));
+//app.set("ens", ens(ethereum));
 
 var twitterConf = require("./config/twitter.json");
 var TwitterClient = require("./lib/twitter.lib");
