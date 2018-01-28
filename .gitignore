@@ -20,5 +20,3 @@ nohup.out
 PID
 config/twitter.json
 config/leveldb.json
-
-leveldb
