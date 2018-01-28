@@ -1,1 +1,0 @@
-{ "indexes" : [ { "v" : 1, "key" : { "_id" : 1 }, "name" : "_id_", "ns" : "nodercms.categories" }, { "v" : 1, "unique" : true, "key" : { "path" : 1 }, "name" : "path_1", "ns" : "nodercms.categories", "sparse" : true, "background" : true } ] }
