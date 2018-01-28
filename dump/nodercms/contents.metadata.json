@@ -1,0 +1,1 @@
+{ "indexes" : [ { "v" : 1, "key" : { "_id" : 1 }, "name" : "_id_", "ns" : "nodercms.contents" }, { "v" : 1, "unique" : true, "key" : { "alias" : 1 }, "name" : "alias_1", "ns" : "nodercms.contents", "background" : true } ] }
