@@ -259,6 +259,7 @@
             // If there's a web3 library loaded, then make your own web3
             $("#info").html("ens域名注册Dapp启动中...");
             var web3 = new Web3(web3.currentProvider);
+            $("#dapps").show();
             web3.eth.getAccounts(function(e, a){
                 var text = "";
                 if(e){
@@ -269,7 +270,6 @@
                     text = "ens域名注册Dapp启动成功，连接账户" + a[0];
                     OWNER = a[0];
                     clickHook = ensDappStart(web3);
-                    $("#dapps").show();
                 }
                 setTimeout(function () {
                     $("#info").html(text);
