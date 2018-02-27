@@ -127,7 +127,7 @@ exports.list = function (options, callback) {
     },
     function (count, callback) {
       contentsModel.find(query)
-        .sort('status -date')
+        .sort('status title')
         .skip((currentPage - 1) * pageSize)
         .limit(pageSize)
         .select('status category title alias user date reading thumbnail abstract extensions')
