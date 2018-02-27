@@ -47,7 +47,7 @@ exports.all = function (callback) {
       async.map(categories, function (category, callback) {
         if (category.node) {
           contents.find({ category: { $in: category.node }, status: 'pushed', deleted: false })
-            .sort('-date')
+            .sort('title')
             .limit(50)
             .select('category title alias user date reading thumbnail')
             .populate('category', 'name path')
@@ -73,7 +73,7 @@ exports.all = function (callback) {
             });
         } else {
           contents.find({ category: category._id, status: 'pushed', deleted: false, date: { $lte: new Date() } })
-            .sort('-date')
+            .sort('title')
             .limit(50)
             .select('category title alias user date reading thumbnail')
             .populate('category', 'name path')
@@ -128,7 +128,7 @@ exports.channel = function (options, callback) {
     function (columns, callback) {
       async.map(columns, function (column, callback) {
         contents.find({ category: column._id, status: 'pushed', deleted: false, date: { $lte: new Date() } })
-          .sort('-date')
+          .sort('title')
           .limit(50)
           .select('category title alias user date reading thumbnail abstract extensions')
           .populate('category', 'name path')
