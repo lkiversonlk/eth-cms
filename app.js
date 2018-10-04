@@ -15,7 +15,8 @@ var app = express();
 
 var Web3 = require("web3");
 var web3 = new Web3();
-web3.setProvider(new web3.providers.HttpProvider("https://mainnet.infura.io/vAugb8H4cG1bOuFMZj3y"));
+// web3.setProvider(new web3.providers.HttpProvider("https://mainnet.infura.io/vAugb8H4cG1bOuFMZj3y"));
+web3.setProvider(new web3.providers.HttpProvider(`http://localhost:8663`));
 
 var ens = require("./lib/ens.lib");
 app.set("ethereum", web3);
