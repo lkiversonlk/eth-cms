@@ -41,7 +41,7 @@ exports.one = function (req, res) {
  */
 exports.list = function (req, res) {
   if (req.validationErrors()) {
-    logger.system().error(__filename, '参数验证失败', req.validationErrors());
+      logger.system().error(__filename, '参数验证失败', req.validationErrors());
     return res.status(400).end();
   }
 

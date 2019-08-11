@@ -45,7 +45,8 @@ exports.one = function (options, callback) {
   if (options.email) query.email = options.email;
   if (options._id) query._id = options._id;
 
-  console.log(JSON.stringify(query))
+  logger.system().error(JSON.stringify(query));
+
   usersModel.findOne(query)
     .select('type nickname email password role')
     .populate('role', 'name description authorities')
